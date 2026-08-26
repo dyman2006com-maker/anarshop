@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>حساب کاربری | انارشاپ</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lalezar&family=Vazirmatn:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f6f3ee; --card:#fff; --ink:#23242e; --muted:#7c818d; --line:#e8e2d6;
+  --primary:#e0243f; --primary-dark:#b71531; --primary-soft:#fdeaee;
+  --teal:#0f9d9a; --teal-soft:#e4f4f3; --saffron:#f4b942; --saffron-soft:#fdf3df;
+  --err:#e0243f; --ok:#22a06b;
+  --sh-sm:0 1px 2px rgba(35,36,46,.06); --sh-md:0 10px 30px rgba(35,36,46,.12);
+  --fd:'Lalezar','Vazirmatn',serif; --fb:'Vazirmatn',system-ui,sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:var(--fb);background:var(--bg);color:var(--ink);line-height:1.8;overflow-x:hidden}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
+input{font-family:inherit}
+::selection{background:var(--primary);color:#fff}
+.container{max-width:1100px;margin-inline:auto;padding-inline:20px}
+[hidden]{display:none!important}
+
+header{position:sticky;top:0;z-index:900;background:#fff;border-bottom:1px solid var(--line);box-shadow:var(--sh-sm)}
+.hd-top{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px 0;flex-wrap:wrap}
+.logo{display:flex;align-items:center;gap:10px}
+.logo-mark{width:42px;height:42px;display:grid;place-items:center}
+.logo-name{font-family:var(--fd);font-size:27px;line-height:1}
+.logo-name em{color:var(--primary);font-style:normal}
+.logo-tag{font-size:11px;color:var(--muted);margin-top:2px}
+.btn-ghost{border:1.5px solid var(--line);border-radius:11px;padding:9px 18px;font-size:13.5px;font-weight:600;display:inline-flex;align-items:center;gap:8px;transition:.2s}
+.btn-ghost:hover{border-color:var(--ink);background:#faf8f4}
+.btn-solid{background:var(--primary);color:#fff;border-radius:11px;padding:11px 22px;font-size:14px;font-weight:700;display:inline-flex;align-items:center;gap:8px;transition:.2s;border:1.5px solid var(--primary)}
+.btn-solid:hover{background:var(--primary-dark)}
+.btn-solid:disabled{background:#c3bfb3;border-color:#c3bfb3;cursor:not-allowed}
+
+.page-head{display:flex;align-items:center;gap:16px;padding:30px 0 8px;flex-wrap:wrap}
+.avatar-big{width:70px;height:70px;border-radius:50%;background:var(--primary);color:#fff;display:grid;place-items:center;font-family:var(--fd);font-size:30px;box-shadow:0 8px 20px rgba(224,36,63,.3)}
+.page-head h1{font-family:var(--fd);font-weight:400;font-size:28px}
+.page-head small{display:block;color:var(--muted);font-size:13px}
+
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;align-items:start;padding:18px 0 50px}
+.card{background:#fff;border:1px solid var(--line);border-radius:18px;padding:24px}
+.card h2{font-family:var(--fd);font-weight:400;font-size:21px;margin-bottom:16px;display:flex;align-items:center;gap:9px}
+.card.full{grid-column:1/-1}
+
+.f-field{margin-bottom:14px}
+.f-field label{display:block;font-size:13px;font-weight:700;margin-bottom:6px}
+.f-field label small{color:var(--muted);font-weight:400}
+.control{background:#f4f1ea;border:1.6px solid transparent;border-radius:12px;transition:.2s}
+.control:focus-within{background:#fff;border-color:var(--primary);box-shadow:0 0 0 4px var(--primary-soft)}
+.control input{width:100%;border:none;background:none;outline:none;padding:12px 14px;font-size:14px}
+.control input.ltr{direction:ltr;text-align:left}
+
+.otp-box{background:var(--teal-soft);border:1px dashed var(--teal);border-radius:14px;padding:16px;margin-top:14px}
+.otp-box p{font-size:12.5px;color:var(--teal);font-weight:700;margin-bottom:10px}
+.otp{display:flex;gap:10px;justify-content:center;direction:ltr;margin:6px 0 12px}
+.otp input{width:52px;height:56px;text-align:center;font-size:22px;font-weight:800;border-radius:12px;border:1.8px solid var(--line);background:#fff;outline:none;transition:.2s}
+.otp input:focus{border-color:var(--primary)}
+.demo-chip{display:inline-flex;align-items:center;gap:7px;background:#fff;color:var(--teal);font-size:12px;font-weight:700;padding:5px 12px;border-radius:99px;margin-bottom:10px}
+.demo-chip b{letter-spacing:2px}
+
+.order-item{display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px dashed var(--line)}
+.order-item:last-child{border-bottom:none}
+.order-item .oi-ic{width:42px;height:42px;border-radius:11px;background:var(--saffron-soft);display:grid;place-items:center;font-size:19px;flex-shrink:0}
+.order-item .oi-txt{flex:1;min-width:0}
+.order-item .oi-txt b{font-size:13.5px}
+.order-item .oi-txt small{display:block;color:var(--muted);font-size:11.5px}
+.pill{display:inline-block;font-size:11px;font-weight:800;padding:3px 10px;border-radius:99px}
+.pill.warn{background:var(--saffron-soft);color:#9a6b00}
+.pill.ok{background:var(--teal-soft);color:var(--teal)}
+.empty{ text-align:center;color:var(--muted);padding:26px 0;font-size:13.5px}
+
+.toast{position:fixed;bottom:26px;right:50%;transform:translate(50%,150%);background:var(--ink);color:#fff;padding:13px 26px;border-radius:13px;font-size:13.5px;font-weight:600;z-index:1200;display:flex;align-items:center;gap:10px;box-shadow:var(--sh-md);transition:transform .4s cubic-bezier(.2,.8,.25,1)}
+.toast.show{transform:translate(50%,0)}
+.toast svg{color:#4ade80;flex-shrink:0}
+
+@media(max-width:860px){ .grid{grid-template-columns:1fr} }
+@media(prefers-reduced-motion:reduce){ *,*::before,*::after{animation:none!important;transition:none!important} html{scroll-behavior:auto} }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="container">
+    <div class="hd-top">
+      <a href="index.html" class="logo">
+        <span class="logo-mark"><svg width="40" height="40" viewBox="0 0 40 40" fill="none"><path d="M20 10c-7.2 0-13 5.4-13 12.5S12.8 35 20 35s13-5.4 13-12.5S27.2 10 20 10z" fill="#e0243f"/><path d="M20 10c0-2.5-1.4-4.6-3.4-5.6M20 10c0-2.5 1.4-4.6 3.4-5.6" stroke="#0f9d9a" stroke-width="2.4" stroke-linecap="round"/><circle cx="16" cy="22" r="1.6" fill="#fff" opacity=".85"/><circle cx="22.5" cy="25.5" r="1.6" fill="#fff" opacity=".85"/></svg></span>
+        <span><div class="logo-name">انار<em>شاپ</em></div><div class="logo-tag">حساب کاربری</div></span>
+      </a>
+      <a class="btn-ghost" href="index.html">← بازگشت به فروشگاه</a>
+    </div>
+  </div>
+</header>
+
+<main class="container">
+  <div class="page-head">
+    <div class="avatar-big" id="avatarBig">ک</div>
+    <div>
+      <h1 id="helloName">حساب کاربری</h1>
+      <small id="helloPhone"></small>
+    </div>
+  </div>
+
+  <div class="grid">
+    <!-- اطلاعات شخصی -->
+    <section class="card">
+      <h2>👤 اطلاعات شخصی</h2>
+      <div class="f-field"><label>نام</label><div class="control"><input type="text" id="pName" placeholder="نام"></div></div>
+      <div class="f-field"><label>نام خانوادگی <small>(اختیاری)</small></label><div class="control"><input type="text" id="pLast" placeholder="نام خانوادگی"></div></div>
+      <div class="f-field"><label>شماره موبایل</label><div class="control"><input type="tel" id="pPhone" class="ltr" placeholder="0912 345 6789"></div></div>
+      <button class="btn-solid" id="saveInfo">💾 ذخیره اطلاعات</button>
+    </section>
+
+    <!-- تغییر رمز عبور -->
+    <section class="card">
+      <h2>🔐 تغییر رمز عبور</h2>
+      <div class="f-field"><label>رمز عبور جدید</label><div class="control"><input type="password" id="newPass" placeholder="حداقل ۶ کاراکتر"></div></div>
+      <button class="btn-solid" id="sendCode" style="background:var(--teal);border-color:var(--teal)">📨 ارسال کد تأیید به شماره من</button>
+
+      <div class="otp-box" id="otpBox" hidden>
+        <p>کد ۴ رقمی ارسال‌شده به شماره <b id="otpPhone"></b> را وارد کن:</p>
+        <div class="demo-chip">💡 کد نمونه: <b id="demoCode"></b></div>
+        <div class="otp" id="otpBoxes">
+          <input maxlength="1" inputmode="numeric"><input maxlength="1" inputmode="numeric"><input maxlength="1" inputmode="numeric"><input maxlength="1" inputmode="numeric">
+        </div>
+        <button class="btn-solid" id="verifyPass" style="width:100%;justify-content:center">تأیید و تغییر رمز</button>
+      </div>
+    </section>
+
+    <!-- سفارش‌ها -->
+    <section class="card full">
+      <h2>📦 سفارش‌های من</h2>
+      <div id="ordersList"></div>
+    </section>
+  </div>
+</main>
+
+<div class="toast" id="toast" role="status"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span id="toastMsg"></span></div>
+
+<script src="shop.js"></script>
+<script>
+/* اگر وارد نشده، برو به ورود */
+if(!getUser()){ location.href = 'auth.html'; }
+
+/* خواندن/ساخت پروفایل */
+let profile;
+try{ profile = JSON.parse(localStorage.getItem('anar_profile')) || null; }catch(e){ profile = null; }
+if(!profile){
+  const u = getUser() || '';
+  const isPhone = /^09\d{9}$/.test(u);
+  profile = { name: isPhone ? '' : u, lastName:'', phone: isPhone ? u : '', password:'' };
+}
+
+function renderProfile(){
+  $('#pName').value = profile.name || '';
+  $('#pLast').value = profile.lastName || '';
+  $('#pPhone').value = profile.phone || '';
+  const display = (profile.name + ' ' + (profile.lastName||'')).trim() || profile.phone || 'کاربر';
+  $('#helloName').textContent = display;
+  $('#helloPhone').textContent = profile.phone ? 'شماره: ' + faD(profile.phone) : 'شماره موبایل ثبت نشده';
+  $('#avatarBig').textContent = (profile.name || profile.phone || 'ک').trim().charAt(0);
+  renderOrders();
+}
+
+function renderOrders(){
+  const box = $('#ordersList');
+  if(!orders.length){ box.innerHTML = '<div class="empty">هنوز سفارشی ثبت نکردی. 🛒</div>'; return; }
+  box.innerHTML = orders.slice().reverse().map(o => `
+    <div class="order-item">
+      <span class="oi-ic">🧾</span>
+      <div class="oi-txt"><b>${o.code}</b><small>${o.date} • ${toman(o.total)}</small></div>
+      <span class="pill ${o.status===2?'ok':'warn'}">${o.status===2?'تحویل شده':(o.status===1?'ارسال شده':'در انتظار')}</span>
+    </div>`).join('');
+}
+
+/* ذخیره اطلاعات شخصی */
+$('#saveInfo').addEventListener('click', () => {
+  const name = $('#pName').value.trim();
+  const phone = $('#pPhone').value.replace(/\s/g,'');
+  if(!name){ showToast('نام رو وارد کن ✍️'); return; }
+  if(phone && !/^09\d{9}$/.test(phone)){ showToast('شماره موبایل معتبر نیست ❌'); return; }
+  profile.name = name;
+  profile.lastName = $('#pLast').value.trim();
+  profile.phone = phone;
+  localStorage.setItem('anar_profile', JSON.stringify(profile));
+  localStorage.setItem('anar_user', (profile.name + ' ' + profile.lastName).trim() || profile.phone);
+  showToast('اطلاعات ذخیره شد ✅');
+  renderProfile();
+});
+
+/* تغییر رمز با کد پیامکی */
+let otpCode = '';
+const boxes = [...$('#otpBoxes').children];
+$('#sendCode').addEventListener('click', () => {
+  if(!profile.phone){ showToast('اول شماره موبایلت رو ذخیره کن 📱'); return; }
+  if($('#newPass').value.length < 6){ showToast('رمز جدید باید حداقل ۶ کاراکتر باشه ❌'); return; }
+  otpCode = String(Math.floor(1000 + Math.random()*9000));
+  $('#demoCode').textContent = faD(otpCode);
+  $('#otpPhone').textContent = faD(profile.phone);
+  boxes.forEach(b=>b.value='');
+  $('#otpBox').hidden = false;
+  showToast('کد تأیید ارسال شد 📨');
+  boxes[0].focus();
+});
+boxes.forEach((b,i)=>{
+  b.addEventListener('input', ()=>{ b.value=b.value.replace(/\D/g,''); if(b.value && i<3) boxes[i+1].focus(); });
+  b.addEventListener('keydown', e=>{ if(e.key==='Backspace' && !b.value && i>0) boxes[i-1].focus(); });
+});
+$('#verifyPass').addEventListener('click', () => {
+  const entered = boxes.map(b=>b.value).join('');
+  if(entered !== otpCode){ showToast('کد درست نیست ❌'); return; }
+  profile.password = $('#newPass').value;
+  localStorage.setItem('anar_profile', JSON.stringify(profile));
+  $('#otpBox').hidden = true;
+  $('#newPass').value = '';
+  showToast('رمز عبور با موفقیت تغییر کرد 🔐');
+});
+
+renderProfile();
+</script>
+</body>
+</html>
