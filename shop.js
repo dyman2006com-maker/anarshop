@@ -274,7 +274,8 @@ function initMobile(){
       .m-nav{display:grid}
       body{padding-bottom:70px}
       .hd-nav{display:none}
-      .toast{bottom:84px}
+      .toast{bottom:84px;transform:translate(50%,320%)}
+      .toast.show{transform:translate(50%,0)}
       #toTop{bottom:84px}
       .add-btn{min-height:42px}
       .tab{padding:9px 16px}
