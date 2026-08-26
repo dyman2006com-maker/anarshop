@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>جزئیات کالا | انارشاپ</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lalezar&family=Vazirmatn:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f6f3ee; --card:#fff; --ink:#23242e; --muted:#7c818d; --line:#e8e2d6;
+  --primary:#e0243f; --primary-dark:#b71531; --primary-soft:#fdeaee;
+  --teal:#0f9d9a; --teal-soft:#e4f4f3; --saffron:#f4b942; --saffron-soft:#fdf3df;
+  --amber:#f6a723; --radius:16px;
+  --sh-sm:0 1px 2px rgba(35,36,46,.06); --sh-md:0 10px 30px rgba(35,36,46,.12);
+  --fd:'Lalezar','Vazirmatn',serif; --fb:'Vazirmatn',system-ui,sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:var(--fb);background:var(--bg);color:var(--ink);line-height:1.8;overflow-x:hidden}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
+input{font-family:inherit}
+::selection{background:var(--primary);color:#fff}
+:focus-visible{outline:2px solid var(--teal);outline-offset:2px}
+.container{max-width:1280px;margin-inline:auto;padding-inline:20px}
+[hidden]{display:none!important}
+
+.ticker{background:var(--ink);color:#f3efe7;overflow:hidden;direction:ltr;font-size:13px}
+.ticker-track{display:flex;width:max-content;animation:tick 28s linear infinite}
+.ticker span{direction:rtl;display:inline-flex;align-items:center;gap:26px;padding:9px 26px;white-space:nowrap}
+.ticker b{color:var(--saffron);font-weight:700}
+.ticker i{color:var(--primary);font-style:normal}
+@keyframes tick{to{transform:translateX(-50%)}}
+
+header{position:sticky;top:0;z-index:900;background:#fff;border-bottom:1px solid var(--line);box-shadow:var(--sh-sm)}
+.hd-top{display:flex;align-items:center;gap:22px;padding:14px 0}
+.logo{display:flex;align-items:center;gap:10px;flex-shrink:0}
+.logo-mark{width:42px;height:42px;display:grid;place-items:center}
+.logo-name{font-family:var(--fd);font-size:27px;line-height:1;color:var(--ink)}
+.logo-name em{color:var(--primary);font-style:normal}
+.logo-tag{font-size:11px;color:var(--muted);margin-top:2px}
+.search{flex:1;display:flex;align-items:center;gap:10px;background:#f2eee6;border:1.5px solid transparent;border-radius:13px;padding:11px 16px;transition:.25s}
+.search:focus-within{background:#fff;border-color:var(--primary);box-shadow:0 0 0 4px var(--primary-soft)}
+.search svg{flex-shrink:0;color:var(--muted)}
+.search input{flex:1;border:none;background:none;outline:none;font-size:14px}
+.search input::placeholder{color:#a4a8b0}
+.hd-actions{display:flex;align-items:center;gap:12px;flex-shrink:0}
+.btn-ghost{border:1.5px solid var(--line);border-radius:11px;padding:9px 18px;font-size:13.5px;font-weight:600;display:inline-flex;align-items:center;gap:8px;transition:.2s}
+.btn-ghost:hover{border-color:var(--ink);background:#faf8f4}
+.btn-solid{background:var(--primary);color:#fff;border-radius:11px;padding:10px 22px;font-size:14px;font-weight:700;display:inline-flex;align-items:center;gap:8px;transition:.2s}
+.btn-solid:hover{background:var(--primary-dark)}
+.cart-btn{position:relative;width:44px;height:44px;display:grid;place-items:center;border:1.5px solid var(--line);border-radius:11px;transition:.2s}
+.cart-btn:hover{border-color:var(--primary);color:var(--primary)}
+.badge{position:absolute;top:-7px;left:-7px;background:var(--primary);color:#fff;font-size:11px;font-weight:800;min-width:20px;height:20px;border-radius:99px;display:grid;place-items:center;padding-inline:5px}
+.badge.bump{animation:bump .4s}
+@keyframes bump{40%{transform:scale(1.45)}}
+.user-wrap{position:relative}
+.user-btn{gap:7px}
+.user-btn .avatar{width:24px;height:24px;border-radius:50%;background:var(--teal-soft);color:var(--teal);display:grid;place-items:center;font-size:12px;font-weight:800}
+.user-menu{position:absolute;top:calc(100% + 10px);left:0;background:#fff;border:1px solid var(--line);border-radius:14px;box-shadow:var(--sh-md);min-width:200px;padding:10px;opacity:0;transform:translateY(-6px);pointer-events:none;transition:.2s;z-index:950}
+.user-menu.open{opacity:1;transform:none;pointer-events:auto}
+.um-head{font-size:12.5px;color:var(--muted);padding:6px 8px 10px;border-bottom:1px dashed var(--line);margin-bottom:6px}
+.um-head b{color:var(--ink)}
+.um-item{display:block;width:100%;text-align:right;padding:8px 10px;font-size:13.5px;font-weight:600;border-radius:9px;transition:.15s}
+.um-item:hover{background:#f6f3ec}
+.um-out{color:var(--primary)}
+.um-out:hover{background:var(--primary-soft)}
+.um-sep{height:1px;background:var(--line);margin:6px 0}
+.hd-nav{display:flex;align-items:center;justify-content:space-between;border-top:1px dashed var(--line)}
+.hd-nav nav{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none}
+.hd-nav nav::-webkit-scrollbar{display:none}
+.hd-nav nav a{padding:12px 13px;font-size:13.5px;font-weight:500;color:#4b4f5b;white-space:nowrap;position:relative}
+.hd-nav nav a::after{content:"";position:absolute;bottom:0;right:13px;left:13px;height:3px;border-radius:3px;background:var(--primary);transform:scaleX(0);transition:transform .25s}
+.hd-nav nav a:hover{color:var(--primary)}
+.hd-nav nav a:hover::after{transform:scaleX(1)}
+
+/* ── مسیر و صفحه محصول ── */
+.crumbs{font-size:12.5px;color:var(--muted);padding:18px 20px 0;display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.crumbs a:hover{color:var(--teal)}
+.pd-grid{display:grid;grid-template-columns:430px 1fr;gap:28px;padding:20px 0;align-items:start}
+.pd-media{position:relative;background:#fff;border:1px solid var(--line);border-radius:22px;padding:18px}
+.pd-media>img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:14px}
+.pd-off{position:absolute;top:30px;right:30px;background:var(--primary);color:#fff;font-size:14px;font-weight:800;padding:5px 13px;border-radius:99px;z-index:2}
+.pd-media .fav{position:absolute;top:28px;left:28px;z-index:2;width:42px;height:42px;border-radius:50%;background:#fff;box-shadow:var(--sh-sm);display:grid;place-items:center;color:#b6bac2;transition:.2s}
+.pd-media .fav:hover{color:var(--primary);transform:scale(1.08)}
+.pd-media .fav.on{color:var(--primary)}
+.pd-media .fav.on svg path{fill:currentColor}
+.pd-thumbs{display:flex;gap:10px;margin-top:12px}
+.pd-thumbs img{width:72px;height:72px;border-radius:11px;object-fit:cover;border:2px solid var(--line);cursor:pointer;transition:.2s}
+.pd-thumbs img:hover{border-color:#cfc8ba}
+.pd-thumbs img.on{border-color:var(--primary)}
+.pd-info h1{font-size:20px;line-height:1.9;font-weight:800}
+.pd-rate{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--muted);margin:10px 0 4px;flex-wrap:wrap}
+.pd-rate svg{color:var(--amber)}
+.pd-rate b{color:var(--ink)}
+.sep-dot{width:4px;height:4px;border-radius:50%;background:#d5d0c4}
+.in-stock{color:var(--teal);font-weight:700}
+.pd-buy{background:#fff;border:1px solid var(--line);border-radius:18px;padding:22px;margin-top:14px;box-shadow:var(--sh-sm)}
+.pd-price-row{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.pd-buy del{color:#b6bac2;font-size:13.5px}
+.pd-price-big{font-size:27px;font-weight:900}
+.pd-price-big i{font-style:normal;font-size:13px;color:var(--muted);font-weight:400}
+.save-chip{background:var(--teal-soft);color:var(--teal);font-size:12px;font-weight:800;padding:6px 13px;border-radius:99px}
+.pd-actions{display:flex;gap:12px;margin-top:18px;flex-wrap:wrap}
+.qty{display:flex;align-items:center;gap:2px;border:1.5px solid var(--line);border-radius:12px;background:#fff}
+.qty button{width:42px;height:46px;font-size:19px;color:var(--primary);font-weight:800}
+.qty b{min-width:34px;text-align:center;font-size:15px}
+.add-btn{border:1.5px solid var(--primary);color:var(--primary);border-radius:12px;padding:8px;font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center;gap:8px;transition:.2s}
+.add-btn:hover{background:var(--primary);color:#fff}
+.pd-add{flex:1;min-width:200px;padding:12px;font-size:15px}
+.seller-row{margin-top:16px;padding-top:14px;border-top:1px dashed var(--line);font-size:13px;color:#565b66}
+.pd-perks{list-style:none;display:flex;flex-direction:column;gap:10px;margin-top:18px;font-size:13.5px;color:#565b66}
+.pd-perks li::before{content:"✓ ";color:var(--teal);font-weight:800}
+.pd-details{margin-top:34px}
+.sec-title{font-family:var(--fd);font-size:26px;font-weight:400;display:flex;align-items:center;gap:12px;margin-bottom:18px}
+.sec-title::before{content:"";width:13px;height:27px;background:var(--primary);border-radius:5px;transform:rotate(8deg)}
+.specs{width:100%;border-collapse:collapse;background:#fff;border-radius:14px;overflow:hidden;border:1px solid var(--line)}
+.specs td{padding:13px 20px;font-size:13.5px;border-bottom:1px dashed var(--line)}
+.specs tr:last-child td{border-bottom:none}
+.specs td:first-child{color:var(--muted);width:190px;background:#faf8f3;font-weight:600}
+.pd-desc{background:#fff;border:1px solid var(--line);border-radius:14px;padding:24px 26px}
+.pd-desc p{font-size:14px;color:#4b4f5b;margin-bottom:12px}
+.pd-desc p:last-child{margin-bottom:0}
+.sec-head{display:flex;align-items:center;justify-content:space-between;gap:14px;margin:40px 0 20px;flex-wrap:wrap}
+.see-all{font-size:13.5px;font-weight:700;color:var(--teal);display:inline-flex;align-items:center;gap:6px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(215px,1fr));gap:16px;padding-bottom:20px}
+.p-card{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:14px;display:flex;flex-direction:column;gap:8px;position:relative;transition:.25s;animation:pop .5s both}
+@keyframes pop{from{opacity:0;transform:translateY(16px) scale(.97)}}
+.p-card:hover{border-color:#d9d2c4;box-shadow:var(--sh-md);transform:translateY(-4px)}
+a.p-media{display:block;border-radius:12px;overflow:hidden;background:#f7f5f0}
+.p-media img{width:100%;aspect-ratio:1;object-fit:cover;transition:transform .6s ease}
+.p-card:hover .p-media img{transform:scale(1.06)}
+.p-card .fav{position:absolute;top:22px;left:22px;z-index:3;width:34px;height:34px;border-radius:50%;background:#fff;box-shadow:var(--sh-sm);display:grid;place-items:center;color:#b6bac2;transition:.2s}
+.p-card .fav:hover{color:var(--primary);transform:scale(1.1)}
+.p-card .fav.on{color:var(--primary)}
+.p-card .fav.on svg path{fill:currentColor}
+.p-title{font-size:13.5px;font-weight:600;line-height:1.75;height:47px;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
+.p-title a{color:inherit;transition:color .2s}
+.p-title a:hover{color:var(--primary)}
+.p-rate{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--muted)}
+.p-rate svg{color:var(--amber)}
+.p-rate b{color:var(--ink)}
+.p-price{display:flex;align-items:center;justify-content:space-between;margin-top:auto}
+.p-price strong{font-size:16px}
+.p-price strong i{font-style:normal;font-size:11px;color:var(--muted);font-weight:400;margin-inline-start:3px}
+.p-old{font-size:12px;color:#b6bac2;text-decoration:line-through;text-align:left;height:18px}
+.off-pill{background:var(--primary);color:#fff;font-size:12px;font-weight:800;padding:2px 9px;border-radius:99px}
+.notfound{text-align:center;padding:90px 20px}
+.notfound b{font-family:var(--fd);font-weight:400;font-size:32px;display:block}
+.notfound p{color:var(--muted);margin:10px 0 24px}
+
+footer{background:var(--ink);color:#c9ccd4;margin-top:50px}
+.ft-top{display:grid;grid-template-columns:1.5fr 1fr 1fr;gap:30px;padding:48px 0 36px}
+.ft-logo{font-family:var(--fd);font-size:30px;color:#fff}
+.ft-logo em{color:var(--primary);font-style:normal}
+.ft-top p{font-size:13px;line-height:2;margin-top:10px}
+.ft-top h5{color:#fff;font-size:15px;margin-bottom:14px}
+.ft-top ul{list-style:none;display:flex;flex-direction:column;gap:10px;font-size:13px}
+.ft-top ul a:hover{color:#fff}
+.ft-bottom{border-top:1px solid #34353f;padding:18px 0;font-size:12.5px;color:#8b8f9b;text-align:center}
+
+.overlay{position:fixed;inset:0;background:rgba(20,18,25,.5);z-index:1050;opacity:0;pointer-events:none;transition:.3s}
+.overlay.show{opacity:1;pointer-events:auto}
+.drawer{position:fixed;top:0;left:0;bottom:0;width:min(400px,94vw);background:#fff;z-index:1100;transform:translateX(-110%);transition:transform .35s cubic-bezier(.2,.8,.25,1);display:flex;flex-direction:column;box-shadow:var(--sh-md)}
+.drawer.open{transform:none}
+.drawer-head{display:flex;align-items:center;justify-content:space-between;padding:18px 22px;border-bottom:1px solid var(--line)}
+.drawer-head h3{font-family:var(--fd);font-size:22px;font-weight:400}
+.drawer-head button{width:36px;height:36px;border-radius:10px;background:#f4f1ea;display:grid;place-items:center;font-size:18px;transition:.2s}
+.drawer-head button:hover{background:var(--primary);color:#fff;transform:rotate(90deg)}
+.drawer-body{flex:1;overflow-y:auto;padding:16px 22px;display:flex;flex-direction:column;gap:12px}
+.c-item{display:flex;gap:12px;border:1px solid var(--line);border-radius:14px;padding:10px;animation:pop .35s both}
+.c-item img{width:64px;height:64px;object-fit:cover;border-radius:10px}
+.c-item .ci-info{flex:1;min-width:0}
+.c-item h5{font-size:12.5px;font-weight:600;line-height:1.7}
+.ci-row{display:flex;align-items:center;justify-content:space-between;margin-top:8px}
+.qty-sm{display:flex;align-items:center;gap:2px;border:1px solid var(--line);border-radius:9px}
+.qty-sm button{width:27px;height:27px;font-size:15px;color:var(--primary);font-weight:800}
+.qty-sm b{min-width:26px;text-align:center;font-size:13px}
+.ci-price{font-size:13px;font-weight:700}
+.ci-del{color:#c3c7cf;font-size:12px;margin-top:4px}
+.ci-del:hover{color:var(--primary)}
+.c-empty{text-align:center;color:var(--muted);margin:auto}
+.drawer-foot{border-top:1px solid var(--line);padding:18px 22px;background:#faf8f3}
+.tf-row{display:flex;justify-content:space-between;font-size:13px;color:var(--muted);margin-bottom:6px}
+.tf-row.total{font-size:15px;color:var(--ink);font-weight:800;margin:10px 0 14px}
+.tf-row b{color:var(--teal)}
+.checkout{width:100%;justify-content:center}
+
+.toast{position:fixed;bottom:26px;right:50%;transform:translate(50%,150%);background:var(--ink);color:#fff;padding:13px 26px;border-radius:13px;font-size:13.5px;font-weight:600;z-index:1200;display:flex;align-items:center;gap:10px;box-shadow:var(--sh-md);transition:transform .4s cubic-bezier(.2,.8,.25,1)}
+.toast.show{transform:translate(50%,0)}
+.toast svg{color:#4ade80}
+
+@media(max-width:900px){
+  .pd-grid{grid-template-columns:1fr}
+  .hd-top{flex-wrap:wrap}
+  .search{order:3;flex-basis:100%}
+  .ft-top{grid-template-columns:1fr}
+}
+@media(max-width:520px){
+  .grid{grid-template-columns:1fr 1fr;gap:10px}
+  .p-card{padding:10px}
+}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  html{scroll-behavior:auto}
+}
+</style>
+</head>
+<body>
+
+<div class="ticker" aria-hidden="true">
+  <div class="ticker-track">
+    <span>✦ <b>ارسال رایگان</b> برای سفارش‌های بالای ۵۰۰ هزار تومان ✦ کد تخفیف اولین خرید: <b>ANAR10</b> ✦ <i>ضمانت اصالت کالا</i> در تمام سفارش‌ها</span>
+    <span>✦ <b>ارسال رایگان</b> برای سفارش‌های بالای ۵۰۰ هزار تومان ✦ کد تخفیف اولین خرید: <b>ANAR10</b> ✦ <i>ضمانت اصالت کالا</i> در تمام سفارش‌ها</span>
+  </div>
+</div>
+
+<header>
+  <div class="container">
+    <div class="hd-top">
+      <a href="index.html" class="logo" aria-label="انارشاپ">
+        <span class="logo-mark">
+          <svg width="40" height="40" viewBox="0 0 40 40" fill="none"><path d="M20 10c-7.2 0-13 5.4-13 12.5S12.8 35 20 35s13-5.4 13-12.5S27.2 10 20 10z" fill="#e0243f"/><path d="M20 10c0-2.5-1.4-4.6-3.4-5.6M20 10c0-2.5 1.4-4.6 3.4-5.6" stroke="#0f9d9a" stroke-width="2.4" stroke-linecap="round"/><circle cx="16" cy="22" r="1.6" fill="#fff" opacity=".85"/><circle cx="22.5" cy="25.5" r="1.6" fill="#fff" opacity=".85"/><circle cx="21" cy="18.5" r="1.4" fill="#fff" opacity=".7"/></svg>
+        </span>
+        <span>
+          <div class="logo-name">انار<em>شاپ</em></div>
+          <div class="logo-tag">خریدِ شیرینِ آنلاین</div>
+        </span>
+      </a>
+      <form class="search" id="searchForm" role="search">
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4-4"/></svg>
+        <input type="text" id="qInput" placeholder="جست‌وجو در انارشاپ..." aria-label="جست‌وجو">
+      </form>
+      <div class="hd-actions">
+        <a class="btn-ghost" id="authBtn" href="auth.html">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          ورود | ثبت‌نام
+        </a>
+        <div class="user-wrap" id="userWrap" hidden>
+          <button class="btn-ghost user-btn" id="userBtn" type="button">
+            <span class="avatar" id="userAvatar">ک</span>
+            <span id="userChipName">کاربر</span>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+          </button>
+          <div class="user-menu" id="userMenu">
+            <div class="um-head">خوش آمدی، <b id="umName"></b></div>
+            <a href="index.html" class="um-item">بازگشت به فروشگاه</a>
+            <div class="um-sep"></div>
+            <button class="um-item um-out" id="logoutBtn" type="button">خروج از حساب</button>
+          </div>
+        </div>
+        <button class="cart-btn" id="cartBtn" aria-label="سبد خرید">
+          <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1.6"/><circle cx="19" cy="21" r="1.6"/><path d="M2.5 3h3l2.6 12.5a2 2 0 0 0 2 1.5h8.7a2 2 0 0 0 2-1.6L22.5 7H6.2"/></svg>
+          <span class="badge" id="cartBadge" hidden>۰</span>
+        </button>
+      </div>
+    </div>
+    <div class="hd-nav">
+      <nav aria-label="دسته‌بندی‌ها">
+        <a href="index.html#products">کالای دیجیتال</a><a href="index.html#products">موبایل</a><a href="index.html#products">لپ‌تاپ</a><a href="index.html#products">خانه و آشپزخانه</a><a href="index.html#products">مد و پوشاک</a><a href="index.html#products">زیبایی و سلامت</a>
+      </nav>
+    </div>
+  </div>
+</header>
+
+<nav class="crumbs container">
+  <a href="index.html">خانه</a><span>‹</span><a href="index.html#products" id="crumbCat">...</a><span>‹</span><span id="crumbTitle" style="color:var(--ink);font-weight:600"></span>
+</nav>
+
+<main class="container" id="pdMain">
+  <div class="pd-grid">
+    <div class="pd-media">
+      <span class="pd-off" id="pdOff" hidden></span>
+      <button class="fav" id="pdFav" type="button" aria-label="افزودن به علاقه‌مندی‌ها"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M12 21C7 17 3 13.6 3 9.5A4.5 4.5 0 0 1 7.5 5c1.8 0 3.4 1 4.5 2.5C13.1 6 14.7 5 16.5 5A4.5 4.5 0 0 1 21 9.5c0 4.1-4 7.5-9 11.5z"/></svg></button>
+      <img id="pdImg" src="" alt="تصویر کالا">
+      <div class="pd-thumbs" id="pdThumbs"></div>
+    </div>
+    <div class="pd-info">
+      <h1 id="pdTitle"></h1>
+      <div class="pd-rate" id="pdRate"></div>
+      <div class="pd-buy">
+        <div class="pd-price-row">
+          <div>
+            <del id="pdOld"></del>
+            <div class="pd-price-big"><span id="pdPrice"></span> <i>تومان</i></div>
+          </div>
+          <span class="save-chip" id="pdSave" hidden></span>
+        </div>
+        <div class="pd-actions">
+          <div class="qty">
+            <button type="button" id="qPlus" aria-label="افزایش">+</button>
+            <b id="qVal">۱</b>
+            <button type="button" id="qMinus" aria-label="کاهش">−</button>
+          </div>
+          <button class="add-btn pd-add" id="pdAdd" type="button">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1.5"/><circle cx="19" cy="21" r="1.5"/><path d="M2.5 3h3l2.6 12.5a2 2 0 0 0 2 1.5h8.7a2 2 0 0 0 2-1.6L22.5 7H6.2"/></svg>
+            افزودن به سبد خرید
+          </button>
+        </div>
+        <div class="seller-row">🏪 فروشنده: <b style="color:var(--ink)">انارشاپ</b> • <span style="color:var(--teal);font-weight:700">٪۹۸ رضایت خریداران</span></div>
+      </div>
+      <ul class="pd-perks">
+        <li>ضمانت اصالت کالا</li>
+        <li>هفت روز ضمانت بازگشت بدون قید و شرط</li>
+        <li>ارسال سریع از انبار انارشاپ</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="pd-details">
+    <h2 class="sec-title">مشخصات فنی</h2>
+    <table class="specs"><tbody id="specsTable"></tbody></table>
+    <h2 class="sec-title" style="margin-top:36px">درباره این کالا</h2>
+    <div class="pd-desc" id="pdDesc"></div>
+  </div>
+
+  <div class="sec-head">
+    <h2 class="sec-title" style="margin-bottom:0">کالاهای مشابه</h2>
+    <a class="see-all" href="index.html#products">مشاهده همه <span>‹</span></a>
+  </div>
+  <div class="grid" id="related"></div>
+</main>
+
+<footer>
+  <div class="container">
+    <div class="ft-top">
+      <div>
+        <div class="ft-logo">انار<em>شاپ</em></div>
+        <p>انارشاپ، فروشگاهی با طعم انار! خریدی مطمئن با ضمانت اصالت کالا و پشتیبانی ۲۴ ساعته.</p>
+      </div>
+      <div><h5>خرید از انارشاپ</h5><ul><li><a href="index.html">بازگشت به فروشگاه</a></li><li><a href="#">نحوه ثبت سفارش</a></li><li><a href="#">شیوه‌های پرداخت</a></li></ul></div>
+      <div><h5>خدمات مشتریان</h5><ul><li><a href="#">پرسش‌های متداول</a></li><li><a href="#">بازگرداندن کالا</a></li><li><a href="#">حریم خصوصی</a></li></ul></div>
+    </div>
+    <div class="ft-bottom">© ۱۴۰۵ انارشاپ — تمامی حقوق محفوظ است.</div>
+  </div>
+</footer>
+
+<div class="overlay" id="overlay"></div>
+<aside class="drawer" id="drawer" aria-label="سبد خرید">
+  <div class="drawer-head"><h3>🛒 سبد خرید شما</h3><button id="drawerClose" aria-label="بستن">✕</button></div>
+  <div class="drawer-body" id="drawerBody"></div>
+  <div class="drawer-foot" id="drawerFoot" hidden>
+    <div class="tf-row"><span>سود شما از این خرید</span><b id="cartSaving">۰ تومان</b></div>
+    <div class="tf-row total"><span>مبلغ قابل پرداخت</span><span id="cartTotal">۰ تومان</span></div>
+    <button class="btn-solid checkout" id="checkoutBtn">ادامه فرآیند خرید</button>
+  </div>
+</aside>
+
+<div class="toast" id="toast" role="status"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span id="toastMsg"></span></div>
+
+<script src="shop.js"></script>
+<script>
+initShopCore();
+
+/* جست‌وجو از این صفحه → نتایج در صفحه اصلی */
+document.getElementById('searchForm').addEventListener('submit', e => {
+  e.preventDefault();
+  const q = document.getElementById('qInput').value.trim();
+  location.href = 'index.html' + (q ? '?q=' + encodeURIComponent(q) : '');
+});
+
+/* مشخصات نمونه بر اساس دسته */
+const SPECS = {
+  digital:[['برند','انارشاپ گلوبال'],['گارانتی','۱۸ ماه شرکتی'],['رنگ','مشکی'],['اقلام همراه','کابل و دفترچه راهنما'],['کشور سازنده','چین']],
+  home:[['برند','انارشاپ هوم'],['گارانتی','۲۴ ماه شرکتی'],['رنگ','نقره‌ای'],['جنس بدنه','استیل ضدزنگ'],['کشور سازنده','چین']],
+  fashion:[['برند','انارشاپ استایل'],['گارانتی','هفت روز بازگشت'],['رنگ','طبق تصویر'],['سایزبندی','دارد']],
+  beauty:[['برند','انارشاپ بیوتی'],['مجوز بهداشت','دارد'],['تاریخ انقضا','۲۰۲۷'],['کشور سازنده','فرانسه']],
+};
+
+const pid = +new URLSearchParams(location.search).get('id');
+const p = CATALOG[pid];
+const wrap = document.getElementById('pdMain');
+
+if(!p){
+  wrap.innerHTML = `<div class="notfound">
+    <b>کالا پیدا نشد! 🍂</b>
+    <p>ممکن است این کالا حذف شده باشد یا آدرس اشتباه وارد شده است.</p>
+    <a class="btn-solid" href="index.html" style="display:inline-flex">بازگشت به فروشگاه</a>
+  </div>`;
+  document.getElementById('crumbTitle').textContent = 'کالا پیدا نشد';
+} else {
+  const pct = off(p);
+  const catName = CAT_NAME[p.c] || 'پیشنهاد شگفت‌انگیز';
+  const rate = p.r || 4.5, votes = p.v || 214;
+  document.title = p.t + ' | انارشاپ';
+
+  /* مسیر */
+  $('#crumbCat').textContent = catName;
+  $('#crumbTitle').textContent = p.t;
+
+  /* عکس و بندانگشتی‌ها */
+  $('#pdImg').src = img(p.s, 700, 700);
+  $('#pdImg').alt = p.t;
+  $('#pdThumbs').innerHTML = [p.s, p.s+'-2', p.s+'-3', p.s+'-4'].map((sd, i) =>
+    `<img src="${img(sd,140,140)}" data-full="${img(sd,700,700)}" class="${i===0?'on':''}" alt="نمای ${faD(i+1)}">`).join('');
+  document.querySelectorAll('#pdThumbs img').forEach(t => t.onclick = () => {
+    document.querySelectorAll('#pdThumbs img').forEach(x => x.classList.remove('on'));
+    t.classList.add('on');
+    $('#pdImg').src = t.dataset.full;
+  });
+
+  /* تخفیف و علاقه‌مندی */
+  if(pct){ const o = $('#pdOff'); o.hidden = false; o.textContent = '٪' + faD(pct) + ' تخفیف'; }
+  const favBtn = $('#pdFav');
+  favBtn.dataset.fav = p.id;
+  if(favs.has(p.id)) favBtn.classList.add('on');
+
+  /* اطلاعات */
+  $('#pdTitle').textContent = p.t;
+  $('#pdRate').innerHTML = `<svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 6.3 7 .9-5.1 4.8 1.3 6.9-6.2-3.4L5.8 21l1.3-6.9L2 9.2l7-.9z"/></svg><b>${faD(rate)}</b><span>(${faD(votes.toLocaleString('en-US'))} دیدگاه)</span><span class="sep-dot"></span><span class="in-stock">✓ موجود در انبار انارشاپ</span>`;
+  $('#pdPrice').textContent = faD(p.p.toLocaleString('en-US'));
+  if(p.o){
+    $('#pdOld').textContent = faD(p.o.toLocaleString('en-US')) + ' تومان';
+    const sv = $('#pdSave'); sv.hidden = false;
+    sv.textContent = 'سود شما: ' + toman(p.o - p.p);
+  }
+
+  /* تعداد + افزودن */
+  let q = 1;
+  const addBtn = $('#pdAdd');
+  addBtn.dataset.id = p.id;
+  $('#qPlus').onclick = () => { if(q < 9){ q++; $('#qVal').textContent = faD(q); addBtn.dataset.qty = q; } };
+  $('#qMinus').onclick = () => { if(q > 1){ q--; $('#qVal').textContent = faD(q); addBtn.dataset.qty = q; } };
+
+  /* مشخصات و توضیحات */
+  $('#specsTable').innerHTML = (SPECS[p.c] || SPECS.digital).map(([k,v]) => `<tr><td>${k}</td><td>${v}</td></tr>`).join('');
+  $('#pdDesc').innerHTML = `<p>«${p.t}» یکی از پرفروش‌ترین محصولات دسته «${catName}» در انارشاپ است که با ضمانت اصالت کالا و هفت روز مهلت بازگشت، خیال شما را از یک خرید مطمئن راحت می‌کند.</p>
+  <p>این کالا مستقیم از انبار انارشاپ ارسال می‌شود و در صورت بروز هرگونه مشکل، تیم پشتیبانی ۲۴ ساعته پاسخگوی شماست. پیش از خرید می‌توانید دیدگاه خریداران قبلی را بخوانید و قیمت را با سایر فروشندگان مقایسه کنید.</p>`;
+
+  /* کالاهای مشابه */
+  let rel = PRODUCTS.filter(x => x.c === p.c && x.id !== p.id);
+  if(rel.length < 4) rel = rel.concat(PRODUCTS.filter(x => x.c !== p.c && x.id !== p.id));
+  $('#related').innerHTML = rel.slice(0,4).map((x,i) => cardHTML(x,i)).join('');
+}
+</script>
+</body>
+</html>

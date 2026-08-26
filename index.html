@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>انارشاپ | فروشگاه اینترنتی</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lalezar&family=Vazirmatn:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f6f3ee; --card:#fff; --ink:#23242e; --muted:#7c818d; --line:#e8e2d6;
+  --primary:#e0243f; --primary-dark:#b71531; --primary-soft:#fdeaee;
+  --teal:#0f9d9a; --teal-soft:#e4f4f3; --saffron:#f4b942; --saffron-soft:#fdf3df;
+  --amber:#f6a723; --radius:16px;
+  --sh-sm:0 1px 2px rgba(35,36,46,.06); --sh-md:0 10px 30px rgba(35,36,46,.12);
+  --fd:'Lalezar','Vazirmatn',serif; --fb:'Vazirmatn',system-ui,sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:var(--fb);background:var(--bg);color:var(--ink);line-height:1.8;overflow-x:hidden}
+body::after{content:"";position:fixed;inset:0;z-index:500;pointer-events:none;opacity:.035;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)' opacity='0.6'/%3E%3C/svg%3E")}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
+input{font-family:inherit}
+::selection{background:var(--primary);color:#fff}
+:focus-visible{outline:2px solid var(--teal);outline-offset:2px}
+.container{max-width:1280px;margin-inline:auto;padding-inline:20px}
+[hidden]{display:none!important}
+
+.ticker{background:var(--ink);color:#f3efe7;overflow:hidden;direction:ltr;font-size:13px}
+.ticker-track{display:flex;width:max-content;animation:tick 28s linear infinite}
+.ticker-track:hover{animation-play-state:paused}
+.ticker span{direction:rtl;display:inline-flex;align-items:center;gap:26px;padding:9px 26px;white-space:nowrap}
+.ticker b{color:var(--saffron);font-weight:700}
+.ticker i{color:var(--primary);font-style:normal}
+@keyframes tick{to{transform:translateX(-50%)}}
+
+header{position:sticky;top:0;z-index:900;background:#fff;border-bottom:1px solid var(--line);transition:box-shadow .3s}
+header.scrolled{box-shadow:var(--sh-md)}
+.hd-top{display:flex;align-items:center;gap:22px;padding:14px 0}
+.logo{display:flex;align-items:center;gap:10px;flex-shrink:0}
+.logo-mark{width:42px;height:42px;display:grid;place-items:center}
+.logo-name{font-family:var(--fd);font-size:27px;line-height:1;color:var(--ink)}
+.logo-name em{color:var(--primary);font-style:normal}
+.logo-tag{font-size:11px;color:var(--muted);margin-top:2px}
+.search{flex:1;display:flex;align-items:center;gap:10px;background:#f2eee6;border:1.5px solid transparent;border-radius:13px;padding:11px 16px;transition:.25s}
+.search:focus-within{background:#fff;border-color:var(--primary);box-shadow:0 0 0 4px var(--primary-soft)}
+.search svg{flex-shrink:0;color:var(--muted)}
+.search input{flex:1;border:none;background:none;outline:none;font-size:14px;color:var(--ink)}
+.search input::placeholder{color:#a4a8b0}
+.hd-actions{display:flex;align-items:center;gap:12px;flex-shrink:0}
+.btn-ghost{border:1.5px solid var(--line);border-radius:11px;padding:9px 18px;font-size:13.5px;font-weight:600;display:inline-flex;align-items:center;gap:8px;transition:.2s}
+.btn-ghost:hover{border-color:var(--ink);background:#faf8f4}
+.btn-solid{background:var(--primary);color:#fff;border-radius:11px;padding:10px 22px;font-size:14px;font-weight:700;display:inline-flex;align-items:center;gap:8px;transition:.2s;border:1.5px solid var(--primary)}
+.btn-solid:hover{background:var(--primary-dark);border-color:var(--primary-dark);transform:translateY(-1px)}
+.btn-solid:active,.btn-ghost:active{transform:scale(.97)}
+.cart-btn{position:relative;width:44px;height:44px;display:grid;place-items:center;border:1.5px solid var(--line);border-radius:11px;transition:.2s}
+.cart-btn:hover{border-color:var(--primary);color:var(--primary)}
+.badge{position:absolute;top:-7px;left:-7px;background:var(--primary);color:#fff;font-size:11px;font-weight:800;min-width:20px;height:20px;border-radius:99px;display:grid;place-items:center;padding-inline:5px}
+.badge.bump{animation:bump .4s}
+@keyframes bump{40%{transform:scale(1.45)}}
+.user-wrap{position:relative}
+.user-btn{gap:7px}
+.user-btn .avatar{width:24px;height:24px;border-radius:50%;background:var(--teal-soft);color:var(--teal);display:grid;place-items:center;font-size:12px;font-weight:800}
+.user-menu{position:absolute;top:calc(100% + 10px);left:0;background:#fff;border:1px solid var(--line);border-radius:14px;box-shadow:var(--sh-md);min-width:200px;padding:10px;opacity:0;transform:translateY(-6px);pointer-events:none;transition:.2s;z-index:950}
+.user-menu.open{opacity:1;transform:none;pointer-events:auto}
+.um-head{font-size:12.5px;color:var(--muted);padding:6px 8px 10px;border-bottom:1px dashed var(--line);margin-bottom:6px}
+.um-head b{color:var(--ink)}
+.um-item{display:block;width:100%;text-align:right;padding:8px 10px;font-size:13.5px;font-weight:600;border-radius:9px;transition:.15s}
+.um-item:hover{background:#f6f3ec}
+.um-out{color:var(--primary)}
+.um-out:hover{background:var(--primary-soft)}
+.um-sep{height:1px;background:var(--line);margin:6px 0}
+.hd-nav{display:flex;align-items:center;justify-content:space-between;border-top:1px dashed var(--line);padding:0}
+.hd-nav nav{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none}
+.hd-nav nav::-webkit-scrollbar{display:none}
+.hd-nav nav a{padding:12px 13px;font-size:13.5px;font-weight:500;color:#4b4f5b;white-space:nowrap;position:relative;transition:color .2s}
+.hd-nav nav a::after{content:"";position:absolute;bottom:0;right:13px;left:13px;height:3px;border-radius:3px;background:var(--primary);transform:scaleX(0);transition:transform .25s}
+.hd-nav nav a:hover{color:var(--primary)}
+.hd-nav nav a:hover::after{transform:scaleX(1)}
+.hd-side{display:flex;gap:18px;font-size:13px;color:var(--muted);flex-shrink:0}
+.hd-side a:hover{color:var(--teal)}
+
+.hero{padding:22px 0 8px}
+.hero-shell{position:relative;border-radius:26px;overflow:hidden;height:430px;box-shadow:var(--sh-sm)}
+.slide{position:absolute;inset:0;display:grid;grid-template-columns:1.05fr .95fr;align-items:center;gap:24px;padding:48px 58px;background:var(--slide-bg,#fdecef);opacity:0;pointer-events:none;transition:opacity .7s ease}
+.slide::before{content:"";position:absolute;left:-120px;top:-120px;width:380px;height:380px;border-radius:50%;background:rgba(255,255,255,.5)}
+.slide::after{content:"";position:absolute;left:60px;bottom:-150px;width:280px;height:280px;border-radius:50%;border:2px dashed rgba(35,36,46,.12)}
+.slide.is-active{opacity:1;pointer-events:auto;z-index:2}
+.slide-text>*{opacity:0;transform:translateY(18px);transition:.6s ease}
+.slide.is-active .slide-text>*{opacity:1;transform:none}
+.slide.is-active .slide-text>*:nth-child(2){transition-delay:.1s}
+.slide.is-active .slide-text>*:nth-child(3){transition-delay:.2s}
+.slide.is-active .slide-text>*:nth-child(4){transition-delay:.3s}
+.slide-tag{display:inline-block;background:#fff;border:1px solid rgba(35,36,46,.1);font-size:12.5px;font-weight:700;padding:5px 14px;border-radius:99px;margin-bottom:14px;position:relative;z-index:1}
+.slide h2{font-family:var(--fd);font-size:clamp(30px,3.6vw,48px);line-height:1.25;font-weight:400;margin-bottom:10px;position:relative;z-index:1}
+.slide p{color:#565b66;font-size:15px;max-width:44ch;margin-bottom:22px;position:relative;z-index:1}
+.slide-meta{margin-top:18px;font-size:12.5px;color:#6b707c;display:flex;gap:16px;flex-wrap:wrap}
+.slide-meta span{display:inline-flex;align-items:center;gap:6px}
+.slide-meta svg{color:var(--teal)}
+.slide-art{position:relative;z-index:1;border-radius:20px;overflow:hidden;box-shadow:var(--sh-md);transform:rotate(-1.5deg)}
+.slide-art img{width:100%;height:320px;object-fit:cover}
+.slide.is-active .slide-art img{animation:kb 9s ease-in-out infinite alternate}
+@keyframes kb{from{transform:scale(1)}to{transform:scale(1.1) translateX(-10px)}}
+.hero-dots{position:absolute;bottom:18px;right:50%;transform:translateX(50%);display:flex;gap:8px;z-index:5}
+.hero-dots button{width:9px;height:9px;border-radius:99px;background:rgba(35,36,46,.25);transition:.3s}
+.hero-dots button.on{width:26px;background:var(--primary)}
+.hero-arrow{position:absolute;top:50%;transform:translateY(-50%);z-index:5;width:40px;height:40px;border-radius:50%;background:#fff;box-shadow:var(--sh-sm);display:grid;place-items:center;font-size:20px;transition:.2s;opacity:.9}
+.hero-arrow:hover{box-shadow:var(--sh-md);color:var(--primary)}
+.hero-arrow.next{left:16px}.hero-arrow.prev{right:16px}
+
+.services{background:#fff;border:1px solid var(--line);border-radius:var(--radius);margin:26px auto;display:grid;grid-template-columns:repeat(4,1fr);box-shadow:var(--sh-sm)}
+.srv{display:flex;align-items:center;gap:13px;padding:20px 22px;border-inline-start:1px dashed var(--line)}
+.srv:first-child{border-inline-start:none}
+.srv svg{color:var(--teal);flex-shrink:0}
+.srv b{display:block;font-size:14px}
+.srv small{color:var(--muted);font-size:12px}
+
+.sec-head{display:flex;align-items:center;justify-content:space-between;gap:14px;margin:44px 0 20px;flex-wrap:wrap}
+.sec-title{font-family:var(--fd);font-size:clamp(24px,2.6vw,32px);font-weight:400;display:flex;align-items:center;gap:12px}
+.sec-title::before{content:"";width:14px;height:30px;background:var(--primary);border-radius:5px;transform:rotate(8deg)}
+.see-all{font-size:13.5px;font-weight:700;color:var(--teal);display:inline-flex;align-items:center;gap:6px;transition:.2s}
+.see-all:hover{gap:10px}
+#resultInfo{font-size:13px;color:var(--muted)}
+#resultInfo b{color:var(--primary)}
+.clear-q{background:var(--primary-soft);color:var(--primary);border-radius:99px;padding:3px 12px;font-size:12px;font-weight:700;margin-inline-start:8px}
+
+.amazing-wrap{background:linear-gradient(130deg,var(--primary),var(--primary-dark));border-radius:26px;padding:26px;color:#fff;position:relative;overflow:hidden}
+.amazing-wrap::before{content:"";position:absolute;left:-80px;top:-80px;width:260px;height:260px;border-radius:50%;background:rgba(255,255,255,.07)}
+.amazing-head{display:flex;align-items:center;gap:20px;flex-wrap:wrap;margin-bottom:20px}
+.amazing-title{font-family:var(--fd);font-size:clamp(24px,2.4vw,32px);display:flex;align-items:center;gap:10px}
+.bolt{background:#fff;color:var(--primary);width:38px;height:38px;border-radius:12px;display:grid;place-items:center;animation:flash 2.4s ease-in-out infinite}
+@keyframes flash{50%{transform:scale(1.12) rotate(-6deg);box-shadow:0 0 0 8px rgba(255,255,255,.15)}}
+.countdown{display:flex;align-items:center;gap:6px;margin-inline-start:auto}
+.cd-box{background:#fff;color:var(--primary);border-radius:9px;min-width:44px;height:44px;display:grid;place-items:center;font-family:var(--fd);font-size:22px}
+.cd-sep{font-family:var(--fd);font-size:22px}
+.cd-lbl{font-size:10px;opacity:.85;text-align:center;margin-top:2px}
+.amazing-track{display:flex;gap:14px;overflow-x:auto;padding:4px 2px 12px;scroll-behavior:smooth}
+.amazing-track::-webkit-scrollbar{height:6px}
+.amazing-track::-webkit-scrollbar-thumb{background:rgba(255,255,255,.4);border-radius:9px}
+.a-intro{flex:0 0 210px;display:flex;flex-direction:column;justify-content:center;gap:10px;padding:20px}
+.a-intro b{font-family:var(--fd);font-size:34px;font-weight:400;line-height:1.2}
+.a-intro small{opacity:.85;font-size:13px}
+.a-link{align-self:flex-start;background:#fff;color:var(--primary);font-weight:800;font-size:13px;padding:8px 18px;border-radius:99px;transition:.2s}
+.a-link:hover{transform:translateY(-2px);box-shadow:var(--sh-md)}
+.a-card{flex:0 0 200px;background:#fff;color:var(--ink);border-radius:16px;padding:14px;display:flex;flex-direction:column;gap:8px;transition:.25s;position:relative}
+.a-card:hover{transform:translateY(-6px);box-shadow:0 14px 30px rgba(0,0,0,.25)}
+.a-thumb{display:block}
+.a-card img{width:100%;height:150px;object-fit:cover;border-radius:10px}
+.a-card h4{font-size:13px;font-weight:600;line-height:1.7;height:44px;overflow:hidden}
+.a-card h4 a:hover{color:var(--primary)}
+.a-price{display:flex;align-items:center;justify-content:space-between}
+.off-pill{background:var(--primary);color:#fff;font-size:12px;font-weight:800;padding:2px 9px;border-radius:99px}
+.a-card del{color:#b6bac2;font-size:12px}
+.a-card strong{font-size:15px}
+.a-card strong i,.p-price strong i{font-style:normal;font-size:11px;color:var(--muted);font-weight:400;margin-inline-start:3px}
+.a-stock{height:5px;background:#f0e3e5;border-radius:9px;overflow:hidden}
+.a-stock span{display:block;height:100%;background:linear-gradient(90deg,var(--primary),var(--saffron));border-radius:9px}
+.a-left{font-size:11px;color:var(--primary);font-weight:700}
+.track-nav{display:flex;gap:8px}
+.track-nav button{width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,.16);color:#fff;display:grid;place-items:center;transition:.2s}
+.track-nav button:hover{background:#fff;color:var(--primary)}
+
+.cats{display:grid;grid-template-columns:repeat(8,1fr);gap:10px}
+.cat{display:flex;flex-direction:column;align-items:center;gap:10px;padding:16px 6px;border-radius:16px;transition:.25s;text-align:center}
+.cat:hover{background:#fff;box-shadow:var(--sh-md);transform:translateY(-5px)}
+.cat-ic{width:66px;height:66px;border-radius:50%;display:grid;place-items:center;transition:.3s}
+.cat:hover .cat-ic{transform:rotate(-8deg) scale(1.08)}
+.cat span{font-size:13px;font-weight:600}
+
+.banners{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin:44px 0}
+.banner{position:relative;border-radius:20px;overflow:hidden;height:210px;display:flex;align-items:flex-end}
+.banner img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .8s ease}
+.banner:hover img{transform:scale(1.07)}
+.banner::before{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(20,18,25,.82),rgba(20,18,25,.05) 60%);z-index:1}
+.banner-txt{position:relative;z-index:2;padding:22px;color:#fff}
+.banner-txt small{background:var(--saffron);color:#3a2c05;font-size:11.5px;font-weight:800;padding:3px 12px;border-radius:99px}
+.banner-txt h3{font-family:var(--fd);font-size:26px;font-weight:400;margin-top:8px}
+.banner-txt p{font-size:12.5px;opacity:.85}
+
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:22px}
+.tab{border:1.5px solid var(--line);background:#fff;border-radius:99px;padding:8px 20px;font-size:13.5px;font-weight:600;color:#565b66;transition:.2s}
+.tab:hover{border-color:var(--primary);color:var(--primary)}
+.tab.on{background:var(--ink);border-color:var(--ink);color:#fff}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(215px,1fr));gap:16px}
+.p-card{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:14px;display:flex;flex-direction:column;gap:8px;position:relative;transition:.25s;animation:pop .5s both}
+@keyframes pop{from{opacity:0;transform:translateY(16px) scale(.97)}}
+.p-card:hover{border-color:#d9d2c4;box-shadow:var(--sh-md);transform:translateY(-4px)}
+a.p-media{display:block;border-radius:12px;overflow:hidden;background:#f7f5f0}
+.p-media img{width:100%;aspect-ratio:1;object-fit:cover;transition:transform .6s ease}
+.p-card:hover .p-media img{transform:scale(1.06)}
+.fav{position:absolute;top:22px;left:22px;z-index:3;width:34px;height:34px;border-radius:50%;background:#fff;box-shadow:var(--sh-sm);display:grid;place-items:center;color:#b6bac2;transition:.2s}
+.fav:hover{color:var(--primary);transform:scale(1.1)}
+.fav.on{color:var(--primary);animation:bump .4s}
+.fav.on svg path{fill:currentColor}
+.p-title{font-size:13.5px;font-weight:600;line-height:1.75;height:47px;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
+.p-title a{color:inherit;transition:color .2s}
+.p-title a:hover{color:var(--primary)}
+.p-rate{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--muted)}
+.p-rate svg{color:var(--amber)}
+.p-rate b{color:var(--ink)}
+.p-price{display:flex;align-items:center;justify-content:space-between;margin-top:auto}
+.p-price strong{font-size:16px}
+.p-old{font-size:12px;color:#b6bac2;text-decoration:line-through;text-align:left;height:18px}
+.add-btn{border:1.5px solid var(--primary);color:var(--primary);border-radius:11px;padding:8px;font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center;gap:8px;transition:.2s;margin-top:6px}
+.add-btn:hover{background:var(--primary);color:#fff}
+.add-btn:active{transform:scale(.97)}
+.empty{grid-column:1/-1;text-align:center;padding:60px 0;color:var(--muted)}
+.empty b{display:block;font-family:var(--fd);font-size:26px;color:var(--ink);font-weight:400;margin-bottom:6px}
+
+.brands{display:grid;grid-template-columns:repeat(6,1fr);gap:14px}
+.brand{background:#fff;border:1px solid var(--line);border-radius:14px;padding:20px 10px;text-align:center;display:flex;flex-direction:column;gap:6px;transition:.25s}
+.brand:hover{box-shadow:var(--sh-md);transform:translateY(-4px)}
+.brand b{font-family:var(--fd);font-size:20px;font-weight:400;letter-spacing:.5px}
+.brand small{font-size:11.5px;color:var(--muted)}
+
+.mag{display:grid;grid-template-columns:1.15fr 1fr;gap:18px}
+.mag-feat{position:relative;border-radius:20px;overflow:hidden;min-height:420px;display:flex;align-items:flex-end}
+.mag-feat img,.mag-item img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .8s}
+.mag-feat:hover img,.mag-item:hover img{transform:scale(1.06)}
+.mag-feat::before{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(20,18,25,.85),transparent 65%);z-index:1}
+.mag-feat .banner-txt{padding:28px}
+.mag-feat h3{font-size:30px;max-width:20ch}
+.mag-list{display:flex;flex-direction:column;gap:14px}
+.mag-item{flex:1;background:#fff;border:1px solid var(--line);border-radius:16px;display:flex;gap:16px;padding:14px;overflow:hidden;transition:.25s}
+.mag-item:hover{box-shadow:var(--sh-md);transform:translateX(-4px)}
+.mag-item .mi-img{flex:0 0 130px;border-radius:12px;overflow:hidden;position:relative}
+.mag-item h4{font-size:14.5px;line-height:1.8;margin:6px 0}
+.mag-item small{color:var(--muted);font-size:12px}
+.tag-pill{font-size:11px;font-weight:700;background:var(--teal-soft);color:var(--teal);padding:2px 10px;border-radius:99px}
+
+.cta-sell{background:linear-gradient(120deg,var(--teal),#0a7d7b);border-radius:26px;padding:40px 46px;color:#fff;display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;margin:50px 0;position:relative;overflow:hidden}
+.cta-sell::before{content:"";position:absolute;left:-60px;bottom:-110px;width:280px;height:280px;border-radius:50%;border:30px solid rgba(255,255,255,.08)}
+.cta-sell h3{font-family:var(--fd);font-size:clamp(24px,2.6vw,34px);font-weight:400}
+.cta-sell p{opacity:.9;font-size:14px;max-width:52ch}
+.btn-white{background:#fff;color:var(--teal);font-weight:800;padding:12px 28px;border-radius:12px;transition:.2s;flex-shrink:0}
+.btn-white:hover{transform:translateY(-2px);box-shadow:var(--sh-md)}
+
+footer{background:var(--ink);color:#c9ccd4;margin-top:60px}
+.ft-top{display:grid;grid-template-columns:1.3fr 1fr 1fr 1fr 1.4fr;gap:30px;padding:54px 0 40px}
+.ft-logo{font-family:var(--fd);font-size:30px;color:#fff}
+.ft-logo em{color:var(--primary);font-style:normal}
+.ft-top p{font-size:13px;line-height:2;margin-top:10px}
+.ft-top h5{color:#fff;font-size:15px;margin-bottom:14px}
+.ft-top ul{list-style:none;display:flex;flex-direction:column;gap:10px;font-size:13px}
+.ft-top ul a{transition:.2s}
+.ft-top ul a:hover{color:#fff;padding-inline-start:6px}
+.news{display:flex;background:#33343f;border-radius:12px;overflow:hidden;margin-top:12px}
+.news input{flex:1;background:none;border:none;outline:none;padding:12px 16px;color:#fff;font-size:13px;min-width:0}
+.news button{background:var(--primary);color:#fff;padding:0 20px;font-weight:700;font-size:13px;transition:.2s}
+.news button:hover{background:var(--primary-dark)}
+.socials{display:flex;gap:10px;margin-top:16px}
+.socials a{width:38px;height:38px;border-radius:10px;background:#33343f;display:grid;place-items:center;transition:.2s}
+.socials a:hover{background:var(--primary);color:#fff;transform:translateY(-3px)}
+.ft-mid{border-top:1px solid #34353f;padding:22px 0;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.trusts{display:flex;gap:12px}
+.trust{background:#2c2d37;border:1px solid #3a3b46;border-radius:12px;width:86px;height:86px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;font-size:10.5px;text-align:center;padding:6px;transition:.2s}
+.trust:hover{border-color:var(--saffron);color:#fff}
+.ft-contact{font-size:13px;line-height:2.2}
+.ft-contact b{color:var(--saffron);font-family:var(--fd);font-weight:400;font-size:20px;letter-spacing:1px}
+.ft-bottom{border-top:1px solid #34353f;padding:18px 0;font-size:12.5px;color:#8b8f9b;text-align:center}
+
+.overlay{position:fixed;inset:0;background:rgba(20,18,25,.5);backdrop-filter:blur(2px);z-index:1050;opacity:0;pointer-events:none;transition:.3s}
+.overlay.show{opacity:1;pointer-events:auto}
+.drawer{position:fixed;top:0;left:0;bottom:0;width:min(400px,94vw);background:#fff;z-index:1100;transform:translateX(-110%);transition:transform .35s cubic-bezier(.2,.8,.25,1);display:flex;flex-direction:column;box-shadow:var(--sh-md)}
+.drawer.open{transform:none}
+.drawer-head{display:flex;align-items:center;justify-content:space-between;padding:18px 22px;border-bottom:1px solid var(--line)}
+.drawer-head h3{font-family:var(--fd);font-size:22px;font-weight:400}
+.drawer-head button{width:36px;height:36px;border-radius:10px;background:#f4f1ea;display:grid;place-items:center;font-size:18px;transition:.2s}
+.drawer-head button:hover{background:var(--primary);color:#fff;transform:rotate(90deg)}
+.drawer-body{flex:1;overflow-y:auto;padding:16px 22px;display:flex;flex-direction:column;gap:12px}
+.c-item{display:flex;gap:12px;border:1px solid var(--line);border-radius:14px;padding:10px;animation:pop .35s both}
+.c-item img{width:64px;height:64px;object-fit:cover;border-radius:10px}
+.c-item .ci-info{flex:1;min-width:0}
+.c-item h5{font-size:12.5px;font-weight:600;line-height:1.7;overflow:hidden;text-overflow:ellipsis;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
+.ci-row{display:flex;align-items:center;justify-content:space-between;margin-top:8px}
+.qty{display:flex;align-items:center;gap:2px;border:1px solid var(--line);border-radius:9px}
+.qty button{width:27px;height:27px;font-size:15px;color:var(--primary);font-weight:800}
+.qty b{min-width:26px;text-align:center;font-size:13px}
+.ci-price{font-size:13px;font-weight:700}
+.ci-del{color:#c3c7cf;font-size:12px;margin-top:4px;transition:.2s}
+.ci-del:hover{color:var(--primary)}
+.c-empty{text-align:center;color:var(--muted);margin:auto}
+.c-empty svg{color:#dcd7cb;margin:0 auto 10px}
+.drawer-foot{border-top:1px solid var(--line);padding:18px 22px;background:#faf8f3}
+.tf-row{display:flex;justify-content:space-between;font-size:13px;color:var(--muted);margin-bottom:6px}
+.tf-row.total{font-size:15px;color:var(--ink);font-weight:800;margin:10px 0 14px}
+.tf-row b{color:var(--teal)}
+.checkout{width:100%;justify-content:center}
+
+.toast{position:fixed;bottom:26px;right:50%;transform:translate(50%,150%);background:var(--ink);color:#fff;padding:13px 26px;border-radius:13px;font-size:13.5px;font-weight:600;z-index:1200;display:flex;align-items:center;gap:10px;box-shadow:var(--sh-md);transition:transform .4s cubic-bezier(.2,.8,.25,1)}
+.toast.show{transform:translate(50%,0)}
+.toast svg{color:#4ade80}
+#toTop{position:fixed;bottom:26px;left:26px;z-index:950;width:46px;height:46px;border-radius:13px;background:#fff;box-shadow:var(--sh-md);display:grid;place-items:center;color:var(--primary);opacity:0;pointer-events:none;transition:.3s}
+#toTop.show{opacity:1;pointer-events:auto}
+#toTop:hover{transform:translateY(-4px)}
+
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s ease}
+.reveal.in{opacity:1;transform:none}
+
+/* اصلاحیه تعامل شگفت‌انگیز */
+.amazing-wrap::before,.slide::before,.slide::after,.cta-sell::before{pointer-events:none}
+.amazing-head,.amazing-track,.a-intro,.a-card{position:relative;z-index:2}
+.amazing-track{cursor:grab}
+.amazing-track.dragging{cursor:grabbing;user-select:none;scroll-behavior:auto}
+.amazing-track img{-webkit-user-drag:none;user-select:none}
+
+@media(max-width:1024px){
+  .cats{grid-template-columns:repeat(4,1fr)}
+  .brands{grid-template-columns:repeat(3,1fr)}
+  .ft-top{grid-template-columns:1fr 1fr;gap:34px}
+  .mag{grid-template-columns:1fr}
+  .services{grid-template-columns:1fr 1fr}
+  .srv:nth-child(3){border-inline-start:none}
+  .srv{border-top:1px dashed var(--line)}
+  .srv:nth-child(-n+2){border-top:none}
+}
+@media(max-width:760px){
+  .hd-top{flex-wrap:wrap}
+  .search{order:3;flex-basis:100%}
+  .slide{grid-template-columns:1fr;height:100%;padding:30px 26px;text-align:center;align-content:center}
+  .hero-shell{height:430px}
+  .slide-art{display:none}
+  .slide-meta{justify-content:center}
+  .hero-arrow{display:none}
+  .banners{grid-template-columns:1fr}
+  .grid{grid-template-columns:repeat(2,1fr);gap:10px}
+  .p-card{padding:10px}
+  .countdown{margin-inline-start:0}
+  .cta-sell{padding:30px 24px;text-align:center;justify-content:center}
+}
+@media(max-width:520px){
+  .cats{grid-template-columns:repeat(3,1fr)}
+  .brands{grid-template-columns:repeat(2,1fr)}
+  .ft-top{grid-template-columns:1fr}
+  .grid{grid-template-columns:1fr 1fr}
+}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  html{scroll-behavior:auto}
+  .reveal{opacity:1;transform:none}
+}
+</style>
+</head>
+<body>
+
+<div class="ticker" aria-hidden="true">
+  <div class="ticker-track">
+    <span>✦ <b>ارسال رایگان</b> برای سفارش‌های بالای ۵۰۰ هزار تومان ✦ کد تخفیف اولین خرید: <b>ANAR10</b> ✦ جشنواره تابستانه تا <b>٪۴۰ تخفیف</b> ✦ پشتیبانی ۲۴ ساعته: <b>۰۲۱ - ۹۱۰۰ ۹۱۰۰</b> ✦ <i>ضمانت اصالت کالا</i> در تمام سفارش‌ها</span>
+    <span>✦ <b>ارسال رایگان</b> برای سفارش‌های بالای ۵۰۰ هزار تومان ✦ کد تخفیف اولین خرید: <b>ANAR10</b> ✦ جشنواره تابستانه تا <b>٪۴۰ تخفیف</b> ✦ پشتیبانی ۲۴ ساعته: <b>۰۲۱ - ۹۱۰۰ ۹۱۰۰</b> ✦ <i>ضمانت اصالت کالا</i> در تمام سفارش‌ها</span>
+  </div>
+</div>
+
+<header id="header">
+  <div class="container">
+    <div class="hd-top">
+      <a href="index.html" class="logo" aria-label="انارشاپ">
+        <span class="logo-mark">
+          <svg width="40" height="40" viewBox="0 0 40 40" fill="none"><path d="M20 10c-7.2 0-13 5.4-13 12.5S12.8 35 20 35s13-5.4 13-12.5S27.2 10 20 10z" fill="#e0243f"/><path d="M20 10c0-2.5-1.4-4.6-3.4-5.6M20 10c0-2.5 1.4-4.6 3.4-5.6" stroke="#0f9d9a" stroke-width="2.4" stroke-linecap="round"/><circle cx="16" cy="22" r="1.6" fill="#fff" opacity=".85"/><circle cx="22.5" cy="25.5" r="1.6" fill="#fff" opacity=".85"/><circle cx="21" cy="18.5" r="1.4" fill="#fff" opacity=".7"/></svg>
+        </span>
+        <span>
+          <div class="logo-name">انار<em>شاپ</em></div>
+          <div class="logo-tag">خریدِ شیرینِ آنلاین</div>
+        </span>
+      </a>
+      <form class="search" id="searchForm" role="search">
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4-4"/></svg>
+        <input type="text" id="qInput" placeholder="جست‌وجو در انارشاپ؛ مثلاً «گوشی سامسونگ»..." aria-label="جست‌وجو">
+      </form>
+      <div class="hd-actions">
+        <a class="btn-ghost" id="authBtn" href="auth.html">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          ورود | ثبت‌نام
+        </a>
+        <div class="user-wrap" id="userWrap" hidden>
+          <button class="btn-ghost user-btn" id="userBtn" type="button">
+            <span class="avatar" id="userAvatar">ک</span>
+            <span id="userChipName">کاربر</span>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+          </button>
+          <div class="user-menu" id="userMenu">
+            <div class="um-head">خوش آمدی، <b id="umName"></b></div>
+            <a href="#" class="um-item">پروفایل من</a>
+            <a href="#" class="um-item">سفارش‌های من</a>
+            <div class="um-sep"></div>
+            <button class="um-item um-out" id="logoutBtn" type="button">خروج از حساب</button>
+          </div>
+        </div>
+        <button class="cart-btn" id="cartBtn" aria-label="سبد خرید">
+          <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1.6"/><circle cx="19" cy="21" r="1.6"/><path d="M2.5 3h3l2.6 12.5a2 2 0 0 0 2 1.5h8.7a2 2 0 0 0 2-1.6L22.5 7H6.2"/></svg>
+          <span class="badge" id="cartBadge" hidden>۰</span>
+        </button>
+      </div>
+    </div>
+    <div class="hd-nav">
+      <nav aria-label="دسته‌بندی‌ها">
+        <a href="#products">کالای دیجیتال</a><a href="#products">موبایل</a><a href="#products">لپ‌تاپ</a><a href="#products">خانه و آشپزخانه</a><a href="#products">مد و پوشاک</a><a href="#products">زیبایی و سلامت</a><a href="#products">ورزش و سفر</a><a href="#products">کتاب و لوازم تحریر</a><a href="#products">سوپرمارکت</a>
+      </nav>
+      <div class="hd-side">
+        <a href="#">پیگیری سفارش</a>
+        <a href="#sell">فروشنده شوید</a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="hero container">
+    <div class="hero-shell" id="heroShell">
+      <div class="slide is-active" style="--slide-bg:#fdecef">
+        <div class="slide-text">
+          <span class="slide-tag">🔥 جشنواره تابستانه</span>
+          <h2>تا ٪۴۰ تخفیف گوشی‌های پرچمدار</h2>
+          <p>گلکسی، آیفون و ردمی با گارانتی ۱۸ ماهه و ارسال رایگان برای خرید بالای ۵۰۰ هزار تومان.</p>
+          <a class="btn-solid" href="#products">مشاهده پیشنهادها</a>
+          <div class="slide-meta"><span>✓ ضمانت اصالت</span><span>✓ هفت روز بازگشت</span><span>✓ پرداخت در محل</span></div>
+        </div>
+        <div class="slide-art"><img src="https://picsum.photos/seed/anar-hero-mobile/640/520" alt="جشنواره موبایل"></div>
+      </div>
+      <div class="slide" style="--slide-bg:#e4f4f3">
+        <div class="slide-text">
+          <span class="slide-tag">💻 فروش ویژه لپ‌تاپ</span>
+          <h2>لپ‌تاپ حرفه‌ای، اقساط ۱۲ ماهه</h2>
+          <p>مک‌بوک، ایسوس و لنوو با اقساط بدون بهره و تحویل اکسپرس در تهران و کرج.</p>
+          <a class="btn-solid" href="#products">خرید لپ‌تاپ</a>
+          <div class="slide-meta"><span>✓ اقساط بدون بهره</span><span>✓ تحویل اکسپرس</span></div>
+        </div>
+        <div class="slide-art"><img src="https://picsum.photos/seed/anar-hero-laptop/640/520" alt="لپ‌تاپ"></div>
+      </div>
+      <div class="slide" style="--slide-bg:#fdf3df">
+        <div class="slide-text">
+          <span class="slide-tag">🏠 خانه و آشپزخانه</span>
+          <h2>خانه‌ای به سبکِ تو</h2>
+          <p>از اسپرسوساز تا چراغ رومیزی؛ چیدمان خانه‌ات را با تخفیف ٪۳۵ تکمیل کن.</p>
+          <a class="btn-solid" href="#products">دیدن محصولات خانه</a>
+          <div class="slide-meta"><span>✓ ضمانت بازگشت</span><span>✓ اصالت کالا</span></div>
+        </div>
+        <div class="slide-art"><img src="https://picsum.photos/seed/anar-hero-home/640/520" alt="خانه و آشپزخانه"></div>
+      </div>
+      <div class="slide" style="--slide-bg:#ece9f8">
+        <div class="slide-text">
+          <span class="slide-tag">✨ زیبایی و سلامت</span>
+          <h2>برندهای اورجینال، قیمت دوسداشتنی</h2>
+          <p>ست‌های مراقبت پوست و عطرهای اصل با مجوز بهداشتی و هفت روز ضمانت بازگشت.</p>
+          <a class="btn-solid" href="#products">خرید محصولات زیبایی</a>
+          <div class="slide-meta"><span>✓ مجوز بهداشت</span><span>✓ کالای اصل</span></div>
+        </div>
+        <div class="slide-art"><img src="https://picsum.photos/seed/anar-hero-beauty/640/520" alt="زیبایی و سلامت"></div>
+      </div>
+      <button class="hero-arrow prev" id="heroPrev" aria-label="اسلاید قبلی">›</button>
+      <button class="hero-arrow next" id="heroNext" aria-label="اسلاید بعدی">‹</button>
+      <div class="hero-dots" id="heroDots"></div>
+    </div>
+  </section>
+
+  <div class="container services reveal">
+    <div class="srv"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M1 8h13v8H1zM14 11h4l3 3v2h-7z"/><circle cx="6" cy="18" r="1.8"/><circle cx="17.5" cy="18" r="1.8"/></svg><div><b>تحویل اکسپرس</b><small>در سریع‌ترین زمان ممکن</small></div></div>
+    <div class="srv"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-3.5 8-10V5l-8-3-8 3v7c0 6.5 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg><div><b>ضمانت اصالت کالا</b><small>تضمین اصل بودن کالا</small></div></div>
+    <div class="srv"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/></svg><div><b>هفت روز ضمانت بازگشت</b><small>بازگشت بدون قید و شرط</small></div></div>
+    <div class="srv"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 13a8 8 0 0 1 16 0"/><rect x="2" y="13" width="4" height="7" rx="2"/><rect x="18" y="13" width="4" height="7" rx="2"/><path d="M20 20a3 3 0 0 1-3 3h-3"/></svg><div><b>پشتیبانی ۲۴ ساعته</b><small>پاسخ‌گویی در هر ساعت</small></div></div>
+  </div>
+
+  <section class="container reveal">
+    <div class="amazing-wrap">
+      <div class="amazing-head">
+        <div class="amazing-title"><span class="bolt"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M13 2 4 14h6l-1 8 9-12h-6l1-8z"/></svg></span>پیشنهاد شگفت‌انگیز</div>
+        <div class="countdown" id="countdown" aria-label="زمان باقی‌مانده"></div>
+        <div class="track-nav">
+          <button id="amzNext" aria-label="بعدی"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg></button>
+          <button id="amzPrev" aria-label="قبلی"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 6 6 6-6 6"/></svg></button>
+        </div>
+      </div>
+      <div class="amazing-track" id="amzTrack"></div>
+    </div>
+  </section>
+
+  <section class="container" style="margin-top:46px">
+    <div class="sec-head reveal"><h2 class="sec-title">خرید بر اساس دسته‌بندی</h2><a class="see-all" href="#products">مشاهده همه <span>‹</span></a></div>
+    <div class="cats reveal" id="cats"></div>
+  </section>
+
+  <div class="container banners">
+    <a class="banner reveal" href="#products"><img src="https://picsum.photos/seed/banner-headphones-sale/900/420" alt="تخفیف هدفون"><div class="banner-txt"><small>تا ٪۳۵ تخفیف</small><h3>هدفون و اسپیکرهای منتخب</h3><p>فقط تا پایان هفته — صدایی که لایقش هستید</p></div></a>
+    <a class="banner reveal" href="#products"><img src="https://picsum.photos/seed/banner-fashion-week/900/420" alt="هفته مد"><div class="banner-txt"><small style="background:var(--teal);color:#fff">هفته مد</small><h3>استایل پاییزی از راه رسید</h3><p>کفش، کیف و اکسسوری با ارسال رایگان</p></div></a>
+  </div>
+
+  <section class="container" id="products">
+    <div class="sec-head reveal">
+      <h2 class="sec-title">پرفروش‌ترین کالاها</h2>
+      <span id="resultInfo"></span>
+    </div>
+    <div class="tabs reveal" id="tabs">
+      <button class="tab on" data-cat="all">همه کالاها</button>
+      <button class="tab" data-cat="digital">کالای دیجیتال</button>
+      <button class="tab" data-cat="home">خانه و آشپزخانه</button>
+      <button class="tab" data-cat="fashion">مد و پوشاک</button>
+      <button class="tab" data-cat="beauty">زیبایی و سلامت</button>
+    </div>
+    <div class="grid" id="grid"></div>
+  </section>
+
+  <section class="container" style="margin-top:50px">
+    <div class="sec-head reveal"><h2 class="sec-title">برندهای محبوب</h2></div>
+    <div class="brands reveal">
+      <a class="brand" href="#products"><b style="color:#4285f4">SAMSUNG</b><small>سامسونگ</small></a>
+      <a class="brand" href="#products"><b style="color:#333">APPLE</b><small>اپل</small></a>
+      <a class="brand" href="#products"><b style="color:#ff6a00">XIAOMI</b><small>شیائومی</small></a>
+      <a class="brand" href="#products"><b style="color:#e4002b">LG</b><small>ال‌جی</small></a>
+      <a class="brand" href="#products"><b style="color:#0072ce">ASUS</b><small>ایسوس</small></a>
+      <a class="brand" href="#products"><b style="color:#111">SONY</b><small>سونی</small></a>
+    </div>
+  </section>
+
+  <section class="container" style="margin-top:54px">
+    <div class="sec-head reveal"><h2 class="sec-title">مجله انارشاپ</h2><a class="see-all" href="#">همه مطالب <span>‹</span></a></div>
+    <div class="mag reveal">
+      <a href="#" class="mag-feat"><img src="https://picsum.photos/seed/blog-phone-guide/900/600" alt="راهنمای خرید گوشی"><div class="banner-txt"><small>راهنمای خرید</small><h3>راهنمای کامل خرید گوشی در سال ۱۴۰۵؛ از پرچمدار تا اقتصادی</h3><p>۱۲ دقیقه مطالعه • تحریریه انارشاپ</p></div></a>
+      <div class="mag-list">
+        <a href="#" class="mag-item"><div class="mi-img"><img src="https://picsum.photos/seed/blog-laptop-compare/300/220" alt="مقایسه لپ‌تاپ"></div><div><span class="tag-pill">لپ‌تاپ</span><h4>مک‌بوک یا لپ‌تاپ ویندوزی؟ مقایسه کامل برای هر بودجه</h4><small>۸ دقیقه مطالعه</small></div></a>
+        <a href="#" class="mag-item"><div class="mi-img"><img src="https://picsum.photos/seed/blog-kitchen-deco/300/220" alt="چیدمان آشپزخانه"></div><div><span class="tag-pill" style="background:var(--saffron-soft);color:#9a6b00">سبک زندگی</span><h4>۱۰ ایده کم‌هزینه برای چیدمان آشپزخانه‌های کوچک</h4><small>۶ دقیقه مطالعه</small></div></a>
+        <a href="#" class="mag-item"><div class="mi-img"><img src="https://picsum.photos/seed/blog-skincare-routine/300/220" alt="مراقبت پوست"></div><div><span class="tag-pill" style="background:var(--primary-soft);color:var(--primary)">زیبایی</span><h4>روتین مراقبت از پوست در تابستان با محصولات مقرون‌به‌صرفه</h4><small>۷ دقیقه مطالعه</small></div></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="container" id="sell">
+    <div class="cta-sell reveal">
+      <div>
+        <h3>کسب‌وکار خود را به انارشاپ بیاورید</h3>
+        <p>بیش از ۲۵ هزار فروشنده فعال در انارشاپ هستند. ثبت‌نام رایگان است و کمیسیون ماه اول را ما پرداخت می‌کنیم.</p>
+      </div>
+      <button class="btn-white" type="button" onclick="showToast('درخواست شما ثبت شد؛ به‌زودی تماس می‌گیریم ✨')">شروع فروش در انارشاپ</button>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="container">
+    <div class="ft-top">
+      <div>
+        <div class="ft-logo">انار<em>شاپ</em></div>
+        <p>انارشاپ، فروشگاهی با طعم انار! ما از سال ۱۳۹۸ با هدف ساده‌کردن خرید آنلاین و تضمین اصالت کالا کنار شما هستیم.</p>
+        <div class="socials">
+          <a href="#" aria-label="اینستاگرام"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2.5" y="2.5" width="19" height="19" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.6" cy="6.4" r="1.1" fill="currentColor" stroke="none"/></svg></a>
+          <a href="#" aria-label="تلگرام"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="m22 3-10 8.5M22 3 15 21l-3-8.5L4 9.5 22 3z"/></svg></a>
+          <a href="#" aria-label="یوتیوب"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="4"/><path d="m10 9 5 3-5 3z" fill="currentColor" stroke="none"/></svg></a>
+          <a href="#" aria-label="لینکدین"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M8 11v5M8 8v.01M12 16v-5m0 2a2.5 2.5 0 0 1 5 0v3"/></svg></a>
+        </div>
+      </div>
+      <div><h5>خرید از انارشاپ</h5><ul><li><a href="#">نحوه ثبت سفارش</a></li><li><a href="#">رویه ارسال سفارش</a></li><li><a href="#">شیوه‌های پرداخت</a></li><li><a href="#">پیگیری مرسوله</a></li></ul></div>
+      <div><h5>خدمات مشتریان</h5><ul><li><a href="#">پاسخ به پرسش‌های متداول</a></li><li><a href="#">رویه بازگرداندن کالا</a></li><li><a href="#">شرایط استفاده</a></li><li><a href="#">حریم خصوصی</a></li></ul></div>
+      <div><h5>راهنمای خرید</h5><ul><li><a href="#">راهنمای خرید اقساطی</a></li><li><a href="#">گارانتی و بیمه کالا</a></li><li><a href="#">مقایسه محصولات</a></li><li><a href="#">سوالات پرتکرار</a></li></ul></div>
+      <div>
+        <h5>از تخفیف‌ها جا نمانید!</h5>
+        <p style="margin-top:0">با عضویت در خبرنامه، اولین نفری باشید که از تخفیف‌های شگفت‌انگیز باخبر می‌شود.</p>
+        <form class="news" id="newsForm"><input type="email" required placeholder="ایمیل شما..."><button type="submit">عضویت</button></form>
+      </div>
+    </div>
+    <div class="ft-mid">
+      <div class="trusts">
+        <div class="trust"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#f4b942" stroke-width="1.7" stroke-linejoin="round"><path d="M12 22s8-3.5 8-10V5l-8-3-8 3v7c0 6.5 8 10 8 10z"/><path d="m9 12 2 2 4-4" stroke="#f4b942"/></svg>نماد اعتماد الکترونیکی</div>
+        <div class="trust"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#0f9d9a" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 8h8M8 12h8M8 16h5"/></svg>مجوز ساماندهی</div>
+        <div class="trust"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#e0243f" stroke-width="1.7" stroke-linejoin="round"><path d="M12 21C7 17 3 13.6 3 9.5A4.5 4.5 0 0 1 7.5 5c1.8 0 3.4 1 4.5 2.5C13.1 6 14.7 5 16.5 5A4.5 4.5 0 0 1 21 9.5c0 4.1-4 7.5-9 11.5z"/></svg>رضایت مشتریان</div>
+      </div>
+      <div class="ft-contact">تلفن پشتیبانی: <b>۰۲۱ - ۹۱۰۰ ۹۱۰۰</b><br>ایمیل: hello@anarshop.ir • تهران، خیابان ولیعصر، برج انار</div>
+    </div>
+    <div class="ft-bottom">© ۱۴۰۵ انارشاپ — تمامی حقوق محفوظ است. ساخته‌شده با ❤ و کمی آب انار.</div>
+  </div>
+</footer>
+
+<div class="overlay" id="overlay"></div>
+<aside class="drawer" id="drawer" aria-label="سبد خرید">
+  <div class="drawer-head"><h3>🛒 سبد خرید شما</h3><button id="drawerClose" aria-label="بستن">✕</button></div>
+  <div class="drawer-body" id="drawerBody"></div>
+  <div class="drawer-foot" id="drawerFoot" hidden>
+    <div class="tf-row"><span>سود شما از این خرید</span><b id="cartSaving">۰ تومان</b></div>
+    <div class="tf-row total"><span>مبلغ قابل پرداخت</span><span id="cartTotal">۰ تومان</span></div>
+    <button class="btn-solid checkout" id="checkoutBtn">ادامه فرآیند خرید</button>
+  </div>
+</aside>
+
+<div class="toast" id="toast" role="status"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span id="toastMsg"></span></div>
+<button id="toTop" aria-label="بازگشت به بالا"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m18 15-6-6-6 6"/></svg></button>
+
+<script src="shop.js"></script>
+<script>
+/* راه‌اندازی بخش‌های مشترک: هدر، ورود، سبد خرید */
+initShopCore();
+
+/* ── دسته‌بندی‌ها ── */
+const CATS = [
+ {n:'موبایل', bg:'var(--primary-soft)', c:'var(--primary)', i:'<rect x="7" y="2" width="10" height="20" rx="2.5"/><path d="M11 18.5h2"/>'},
+ {n:'لپ‌تاپ', bg:'var(--teal-soft)', c:'var(--teal)', i:'<rect x="3" y="4" width="18" height="12" rx="2"/><path d="M2 20h20"/>'},
+ {n:'خانه و آشپزخانه', bg:'var(--saffron-soft)', c:'#b07c10', i:'<path d="m3 10 9-7 9 7"/><path d="M5 9v11h14V9"/><path d="M10 20v-6h4v6"/>'},
+ {n:'مد و پوشاک', bg:'#ece9f8', c:'#6d5bd0', i:'<path d="M9 3 5 6l1.5 3L9 8v13h6V8l2.5 1L19 6l-4-3a3 3 0 0 1-6 0z"/>'},
+ {n:'زیبایی و سلامت', bg:'var(--primary-soft)', c:'var(--primary)', i:'<path d="M12 3v3M12 18v3M3 12h3M18 12h3M6 6l2 2M16 16l2 2M18 6l-2 2M8 16l-2 2"/><circle cx="12" cy="12" r="3"/>'},
+ {n:'ورزش و سفر', bg:'var(--teal-soft)', c:'var(--teal)', i:'<path d="M6.5 6.5v11M17.5 6.5v11M3 9v6M21 9v6M6.5 12h11"/>'},
+ {n:'کتاب و تحریر', bg:'var(--saffron-soft)', c:'#b07c10', i:'<path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20V3H6.5A2.5 2.5 0 0 0 4 5.5v14z"/><path d="M4 19.5A2.5 2.5 0 0 0 6.5 22H20v-5"/>'},
+ {n:'اسباب‌بازی', bg:'#ece9f8', c:'#6d5bd0', i:'<rect x="2" y="7" width="20" height="12" rx="5"/><path d="M8 11v4M6 13h4M15 12h.01M18 14h.01"/>'},
+];
+document.getElementById('cats').innerHTML = CATS.map(c =>
+ `<a href="#products" class="cat"><span class="cat-ic" style="background:${c.bg};color:${c.c}"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">${c.i}</svg></span><span>${c.n}</span></a>`).join('');
+
+/* ── شگفت‌انگیز (با لینک به صفحه محصول) ── */
+document.getElementById('amzTrack').innerHTML =
+ `<div class="a-intro"><b>تا ٪۶۰ تخفیف</b><small>فقط تا پایان امروز — عجله کنید، تعداد محدود است!</small><a href="#products" class="a-link">مشاهده همه ‹</a></div>` +
+ AMAZING.map(p => {
+   const pct = off(p), sold = Math.min(92, 96 - p.left * 6);
+   return `<div class="a-card" data-id="${p.id}">
+     <a class="a-thumb" href="product.html?id=${p.id}"><img loading="lazy" src="${img(p.s,400,300)}" alt="${p.t}" draggable="false"></a>
+     <h4><a href="product.html?id=${p.id}">${p.t}</a></h4>
+     <div class="a-price"><span class="off-pill">٪${faD(pct)}</span><strong>${faD(p.p.toLocaleString('en-US'))}<i>تومان</i></strong></div>
+     <del>${faD(p.o.toLocaleString('en-US'))}</del>
+     <div class="a-stock"><span style="width:${sold}%"></span></div>
+     <span class="a-left">فقط ${faD(p.left)} عدد باقی مانده</span>
+     <button class="add-btn" data-id="${p.id}" type="button">+ افزودن به سبد</button>
+   </div>`;
+ }).join('');
+
+/* ── گرید محصولات + فیلتر و جست‌وجو ── */
+const state = { cat:'all', q:'' };
+const grid = document.getElementById('grid');
+const info = document.getElementById('resultInfo');
+
+function applyFilters(){
+  const list = PRODUCTS.filter(p =>
+    (state.cat === 'all' || p.c === state.cat) &&
+    (state.q === '' || p.t.includes(state.q)));
+  grid.innerHTML = list.length ? list.map((p,i) => cardHTML(p,i)).join('')
+    : `<div class="empty"><b>کالایی پیدا نشد 🔍</b>عبارت دیگری را امتحان کنید<button class="clear-q" id="clearQ" type="button">پاک‌کردن جست‌وجو</button></div>`;
+  info.innerHTML = `${faD(list.length)} کالا${state.q ? ` برای «<b>${state.q}</b>» <button class="clear-q" id="clearQ" type="button">✕ حذف فیلتر</button>` : ''}`;
+  document.querySelectorAll('#clearQ').forEach(b => b.onclick = () => { state.q=''; document.getElementById('qInput').value=''; applyFilters(); });
+}
+/* اگر از صفحه دیگری با ?q= اومده باشیم */
+const urlQ = new URLSearchParams(location.search).get('q');
+if(urlQ){ state.q = urlQ; document.getElementById('qInput').value = urlQ; }
+const urlCat = new URLSearchParams(location.search).get('cat');
+if(urlCat && ['digital','home','fashion','beauty'].includes(urlCat)){
+  state.cat = urlCat;
+  document.querySelectorAll('.tab').forEach(t => t.classList.toggle('on', t.dataset.cat === urlCat));
+}
+applyFilters();
+
+document.getElementById('tabs').addEventListener('click', e => {
+  const t = e.target.closest('.tab'); if(!t) return;
+  document.querySelectorAll('.tab').forEach(x => x.classList.remove('on'));
+  t.classList.add('on'); state.cat = t.dataset.cat; applyFilters();
+});
+let qTimer;
+document.getElementById('qInput').addEventListener('input', e => {
+  clearTimeout(qTimer);
+  qTimer = setTimeout(() => { state.q = e.target.value.trim(); applyFilters(); }, 200);
+});
+document.getElementById('searchForm').addEventListener('submit', e => {
+  e.preventDefault(); applyFilters();
+  document.getElementById('products').scrollIntoView({behavior: RM ? 'auto' : 'smooth'});
+});
+
+/* ── هیرو ── */
+const slides = [...document.querySelectorAll('.slide')];
+const dotsBox = document.getElementById('heroDots');
+let cur = 0, heroTimer;
+slides.forEach((_, i) => {
+  const b = document.createElement('button');
+  b.setAttribute('aria-label', 'اسلاید ' + faD(i+1));
+  if(!i) b.classList.add('on');
+  b.onclick = () => go(i);
+  dotsBox.appendChild(b);
+});
+const dots = [...dotsBox.children];
+function go(i){
+  cur = (i + slides.length) % slides.length;
+  slides.forEach((s, j) => s.classList.toggle('is-active', j === cur));
+  dots.forEach((d, j) => d.classList.toggle('on', j === cur));
+}
+function autoplay(){ if(!RM){ clearInterval(heroTimer); heroTimer = setInterval(() => go(cur + 1), 5000); } }
+document.getElementById('heroNext').onclick = () => { go(cur + 1); autoplay(); };
+document.getElementById('heroPrev').onclick = () => { go(cur - 1); autoplay(); };
+document.getElementById('heroShell').addEventListener('mouseenter', () => clearInterval(heroTimer));
+document.getElementById('heroShell').addEventListener('mouseleave', autoplay);
+autoplay();
+
+/* ── شمارش معکوس ── */
+const cdEnd = Date.now() + (6*3600 + 42*60 + 10) * 1000;
+const cd = document.getElementById('countdown');
+function pad(n){ return faD(String(n).padStart(2,'0')); }
+function tick(){
+  let d = Math.max(0, cdEnd - Date.now()) / 1000;
+  const h = Math.floor(d/3600), m = Math.floor(d%3600/60), s = Math.floor(d%60);
+  cd.innerHTML = [['ساعت',pad(h)],['',null],['دقیقه',pad(m)],['',null],['ثانیه',pad(s)]]
+    .map(([l,v]) => v === null ? '<span class="cd-sep">:</span>' : `<div style="text-align:center"><div class="cd-box">${v}</div><div class="cd-lbl">${l}</div></div>`).join('');
+}
+tick(); setInterval(tick, 1000);
+
+/* اسکرول شگفت‌انگیز: دکمه + درگ موس */
+const amzTrack = document.getElementById('amzTrack');
+document.getElementById('amzNext').onclick = () => amzTrack.scrollBy({left:-240, behavior: RM ? 'auto' : 'smooth'});
+document.getElementById('amzPrev').onclick = () => amzTrack.scrollBy({left: 240, behavior: RM ? 'auto' : 'smooth'});
+(function(){
+  let down=false, moved=false, startX=0, startLeft=0;
+  amzTrack.addEventListener('dragstart', e => e.preventDefault());
+  amzTrack.addEventListener('mousedown', e => {
+    if(e.button !== 0 || e.target.closest('button,a')) return;
+    down=true; moved=false; startX=e.pageX; startLeft=amzTrack.scrollLeft;
+    amzTrack.classList.add('dragging'); e.preventDefault();
+  });
+  window.addEventListener('mousemove', e => {
+    if(!down) return;
+    const dx = e.pageX - startX;
+    if(Math.abs(dx) > 5) moved = true;
+    if(moved) amzTrack.scrollLeft = startLeft + dx;
+  });
+  window.addEventListener('mouseup', () => { if(!down) return; down=false; amzTrack.classList.remove('dragging'); });
+  amzTrack.addEventListener('click', e => { if(moved){ e.preventDefault(); e.stopPropagation(); moved=false; } }, true);
+})();
+
+/* ── اسکرول صفحه ── */
+const header = document.getElementById('header'), toTop = document.getElementById('toTop');
+addEventListener('scroll', () => {
+  header.classList.toggle('scrolled', scrollY > 10);
+  toTop.classList.toggle('show', scrollY > 700);
+}, {passive:true});
+toTop.onclick = () => scrollTo({top:0, behavior: RM ? 'auto' : 'smooth'});
+
+/* ── ظاهرشدن با اسکرول ── */
+const io = new IntersectionObserver(entries => entries.forEach(en => {
+  if(en.isIntersecting){ en.target.classList.add('in'); io.unobserve(en.target); }
+}), {threshold:.12});
+document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+/* ── خبرنامه ── */
+document.getElementById('newsForm').addEventListener('submit', e => {
+  e.preventDefault(); e.target.reset(); showToast('عضویت شما در خبرنامه ثبت شد ✨');
+});
+
+/* ── بازگشت از صفحه ورود ── */
+(function(){
+  const params = new URLSearchParams(location.search);
+  const after = params.get('afterLogin');
+  if(after){
+    if(after === 'checkout'){
+      showToast('خوش برگشتی! حالا خریدت رو کامل کن 🛒');
+      setTimeout(openDrawer, 600);
+    } else {
+      showToast('ورود موفق! خوش برگشتی ✨');
+    }
+    history.replaceState({}, '', location.pathname);
+  }
+})();
+</script>
+</body>
+</html>

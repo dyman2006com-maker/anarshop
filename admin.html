@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>پنل مدیریت | انارشاپ</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lalezar&family=Vazirmatn:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f6f3ee; --card:#fff; --ink:#23242e; --muted:#7c818d; --line:#e8e2d6;
+  --primary:#e0243f; --primary-dark:#b71531; --primary-soft:#fdeaee;
+  --teal:#0f9d9a; --teal-soft:#e4f4f3; --saffron:#f4b942; --saffron-soft:#fdf3df;
+  --ok:#22a06b; --err:#e0243f;
+  --sh-sm:0 1px 2px rgba(35,36,46,.06); --sh-md:0 10px 30px rgba(35,36,46,.12);
+  --fd:'Lalezar','Vazirmatn',serif; --fb:'Vazirmatn',system-ui,sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:var(--fb);background:var(--bg);color:var(--ink);line-height:1.7;min-height:100vh;display:flex}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
+input,select,textarea{font-family:inherit;font-size:14px}
+::selection{background:var(--primary);color:#fff}
+[hidden]{display:none!important}
+
+/* سایدبار */
+.side{width:260px;background:var(--ink);color:#c9ccd4;min-height:100vh;position:sticky;top:0;flex-shrink:0;display:flex;flex-direction:column;padding:22px 16px}
+.side-logo{display:flex;align-items:center;gap:10px;margin-bottom:30px}
+.side-logo .mark{width:40px;height:40px;background:var(--primary);border-radius:11px;display:grid;place-items:center;font-size:20px}
+.side-logo b{font-family:var(--fd);font-size:22px;color:#fff}
+.side-logo b em{color:var(--saffron);font-style:normal}
+.side-menu{display:flex;flex-direction:column;gap:4px;flex:1}
+.side-item{display:flex;align-items:center;gap:11px;padding:11px 14px;border-radius:11px;font-size:13.5px;font-weight:600;transition:.2s;color:#a9acb8}
+.side-item:hover{background:#31323c;color:#fff}
+.side-item.on{background:var(--primary);color:#fff;box-shadow:0 8px 20px rgba(224,36,63,.25)}
+.side-item svg{flex-shrink:0}
+.side-item .num{margin-inline-start:auto;background:rgba(255,255,255,.12);font-size:11px;font-weight:800;padding:2px 8px;border-radius:99px}
+.side-item.on .num{background:rgba(255,255,255,.25)}
+.side-foot{border-top:1px solid #31323c;padding-top:14px;display:flex;flex-direction:column;gap:4px}
+
+/* محتوای اصلی */
+.main{flex:1;padding:30px 34px;min-width:0}
+.hd{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:26px;flex-wrap:wrap}
+.hd h1{font-family:var(--fd);font-weight:400;font-size:28px;display:flex;align-items:center;gap:12px}
+.hd h1::before{content:"";width:12px;height:28px;background:var(--primary);border-radius:4px;transform:rotate(8deg)}
+.hd-actions{display:flex;gap:10px;flex-wrap:wrap}
+.btn{padding:10px 18px;border-radius:11px;font-size:13px;font-weight:700;display:inline-flex;align-items:center;gap:8px;transition:.2s;border:1.5px solid transparent}
+.btn-primary{background:var(--primary);color:#fff;border-color:var(--primary)}
+.btn-primary:hover{background:var(--primary-dark);border-color:var(--primary-dark)}
+.btn-outline{background:#fff;border-color:var(--line);color:var(--ink)}
+.btn-outline:hover{border-color:var(--ink)}
+.btn-ghost{color:var(--muted)}
+.btn-ghost:hover{color:var(--ink)}
+.btn-sm{padding:7px 13px;font-size:12.5px}
+.btn-danger{background:#fff5f6;border-color:#ffced3;color:var(--err)}
+.btn-danger:hover{background:var(--err);color:#fff;border-color:var(--err)}
+
+/* کارت‌ها */
+.tab{display:none;animation:fadein .3s}
+.tab.on{display:block}
+@keyframes fadein{from{opacity:0;transform:translateY(8px)}}
+
+/* داشبورد */
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin-bottom:26px}
+.stat{background:#fff;border:1px solid var(--line);border-radius:16px;padding:20px;display:flex;align-items:center;gap:14px;transition:.2s}
+.stat:hover{box-shadow:var(--sh-md);transform:translateY(-2px)}
+.stat-ic{width:48px;height:48px;border-radius:13px;display:grid;place-items:center;flex-shrink:0}
+.stat-ic.pink{background:var(--primary-soft);color:var(--primary)}
+.stat-ic.teal{background:var(--teal-soft);color:var(--teal)}
+.stat-ic.yellow{background:var(--saffron-soft);color:#b07c10}
+.stat-ic.dark{background:#ecebee;color:var(--ink)}
+.stat b{font-family:var(--fd);font-size:26px;font-weight:400;line-height:1}
+.stat small{color:var(--muted);font-size:12px;margin-top:3px}
+
+.panel{background:#fff;border:1px solid var(--line);border-radius:16px;padding:22px;margin-bottom:18px}
+.panel-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:16px;flex-wrap:wrap}
+.panel-head h3{font-family:var(--fd);font-weight:400;font-size:20px}
+
+/* جدول */
+.tbl-wrap{overflow-x:auto;border-radius:12px;border:1px solid var(--line)}
+.tbl{width:100%;border-collapse:collapse;background:#fff}
+.tbl th,.tbl td{padding:13px 16px;text-align:right;font-size:13px;border-bottom:1px dashed var(--line)}
+.tbl th{background:#faf8f3;color:var(--muted);font-weight:700;font-size:12px}
+.tbl tr:last-child td{border-bottom:none}
+.tbl tr:hover td{background:#fafaf6}
+.tbl img{width:42px;height:42px;border-radius:9px;object-fit:cover}
+.row-meta{display:flex;align-items:center;gap:10px}
+.row-meta .meta{display:flex;flex-direction:column}
+.row-meta .meta b{font-size:13px;font-weight:700}
+.row-meta .meta small{color:var(--muted);font-size:11px}
+.pill{display:inline-block;font-size:11px;font-weight:800;padding:3px 10px;border-radius:99px}
+.pill.ok{background:var(--teal-soft);color:var(--teal)}
+.pill.warn{background:var(--saffron-soft);color:#9a6b00}
+.pill.err{background:var(--primary-soft);color:var(--primary)}
+.pill.gray{background:#ecebee;color:var(--muted)}
+.row-actions{display:flex;gap:6px;flex-wrap:wrap}
+
+/* فرم‌ها */
+.form{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px}
+.form .full{grid-column:1/-1}
+.f-field label{display:block;font-size:12.5px;font-weight:700;margin-bottom:5px;color:#565b66}
+.f-field label small{color:var(--muted);font-weight:400}
+.ctrl{background:#f4f1ea;border:1.5px solid transparent;border-radius:10px;transition:.2s}
+.ctrl:focus-within{background:#fff;border-color:var(--primary);box-shadow:0 0 0 3px var(--primary-soft)}
+.ctrl input,.ctrl select,.ctrl textarea{width:100%;border:none;background:none;outline:none;padding:10px 13px;color:var(--ink)}
+.ctrl textarea{min-height:90px;resize:vertical}
+.ctrl input.ltr{direction:ltr;text-align:left}
+
+/* مودال */
+.overlay{position:fixed;inset:0;background:rgba(20,18,25,.5);backdrop-filter:blur(2px);z-index:1050;opacity:0;pointer-events:none;transition:.3s;display:grid;place-items:center;padding:20px}
+.overlay.show{opacity:1;pointer-events:auto}
+.modal{background:#fff;border-radius:20px;max-width:600px;width:100%;max-height:90vh;overflow-y:auto;padding:26px;box-shadow:var(--sh-md);animation:pop .3s}
+@keyframes pop{from{opacity:0;transform:scale(.95)}}
+.modal-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}
+.modal-head h3{font-family:var(--fd);font-weight:400;font-size:22px}
+.modal-head button{width:34px;height:34px;border-radius:10px;background:#f4f1ea;display:grid;place-items:center;transition:.2s}
+.modal-head button:hover{background:var(--primary);color:#fff}
+
+/* توست */
+.toast{position:fixed;bottom:26px;right:50%;transform:translate(50%,150%);background:var(--ink);color:#fff;padding:13px 26px;border-radius:13px;font-size:13.5px;font-weight:600;z-index:1200;display:flex;align-items:center;gap:10px;box-shadow:var(--sh-md);transition:transform .4s cubic-bezier(.2,.8,.25,1)}
+.toast.show{transform:translate(50%,0)}
+.toast svg{color:#4ade80}
+
+/* جست‌وجو و ابزار بالای جدول */
+.toolbar{display:flex;gap:10px;margin-bottom:14px;flex-wrap:wrap}
+.toolbar input{flex:1;min-width:180px;background:#fff;border:1.5px solid var(--line);border-radius:10px;padding:10px 14px;outline:none;font-size:13.5px}
+.toolbar input:focus{border-color:var(--primary)}
+.toolbar select{background:#fff;border:1.5px solid var(--line);border-radius:10px;padding:10px 14px;font-family:inherit;font-size:13.5px;outline:none}
+
+/* وضعیت سفارش قابل تغییر */
+.status-select{background:transparent;border:1.5px solid var(--line);border-radius:8px;padding:5px 10px;font-size:12px;font-family:inherit;font-weight:700;outline:none;cursor:pointer}
+.status-select.s0{border-color:#ffd67a;color:#9a6b00;background:var(--saffron-soft)}
+.status-select.s1{border-color:#a6e3e2;color:var(--teal);background:var(--teal-soft)}
+.status-select.s2{border-color:#a6e3a6;color:var(--ok);background:#e6f6ea}
+
+.empty{text-align:center;padding:40px 20px;color:var(--muted)}
+.empty b{font-family:var(--fd);font-weight:400;font-size:20px;display:block;color:var(--ink);margin-bottom:6px}
+
+/* موبایل */
+.hamburger{display:none;width:42px;height:42px;border-radius:11px;background:#fff;border:1.5px solid var(--line);place-items:center}
+@media(max-width:900px){
+  .hamburger{display:grid}
+  .side{position:fixed;top:0;right:0;bottom:0;z-index:1000;transform:translateX(100%);transition:transform .3s}
+  .side.open{transform:none}
+  .main{padding:20px 16px}
+}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+}
+</style>
+</head>
+<body>
+
+<aside class="side" id="side">
+  <div class="side-logo">
+    <span class="mark">🍉</span>
+    <b>انار<em>پنل</em></b>
+  </div>
+  <nav class="side-menu">
+    <button class="side-item on" data-tab="dashboard"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="9"/><rect x="14" y="3" width="7" height="5"/><rect x="14" y="12" width="7" height="9"/><rect x="3" y="16" width="7" height="5"/></svg>داشبورد</button>
+    <button class="side-item" data-tab="products"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>محصولات <span class="num" id="numProducts">0</span></button>
+    <button class="side-item" data-tab="amazing"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 4 14h6l-1 8 9-12h-6l1-8z"/></svg>شگفت‌انگیز <span class="num" id="numAmazing">0</span></button>
+    <button class="side-item" data-tab="orders"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>سفارش‌ها <span class="num" id="numOrders">0</span></button>
+    <button class="side-item" data-tab="discounts"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="9" r="2"/><circle cx="15" cy="15" r="2"/><path d="m7 17 10-10"/></svg>کد تخفیف <span class="num" id="numDisc">0</span></button>
+    <button class="side-item" data-tab="settings"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>تنظیمات</button>
+  </nav>
+  <div class="side-foot">
+    <a class="side-item" href="index.html"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>مشاهده فروشگاه</a>
+    <button class="side-item" id="logoutBtn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"/></svg>خروج</button>
+  </div>
+</aside>
+
+<main class="main">
+  <div class="hd">
+    <div style="display:flex;align-items:center;gap:12px">
+      <button class="hamburger" id="hamb" aria-label="منو"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 12h18M3 6h18M3 18h18"/></svg></button>
+      <h1 id="pageTitle">داشبورد</h1>
+    </div>
+    <div class="hd-actions" id="hdActions"></div>
+  </div>
+
+  <!-- داشبورد -->
+  <section class="tab on" data-tab="dashboard">
+    <div class="stats" id="stats"></div>
+    <div class="panel">
+      <div class="panel-head"><h3>آخرین سفارش‌ها</h3><button class="btn btn-outline btn-sm" onclick="switchTab('orders')">مشاهده همه ←</button></div>
+      <div id="recentOrders"></div>
+    </div>
+    <div class="panel">
+      <div class="panel-head"><h3>پرفروش‌ترین کالاها</h3></div>
+      <div id="topProducts"></div>
+    </div>
+  </section>
+
+  <!-- محصولات -->
+  <section class="tab" data-tab="products">
+    <div class="toolbar">
+      <input type="text" id="searchProd" placeholder="جست‌وجو در محصولات...">
+      <select id="filterCat">
+        <option value="">همه دسته‌ها</option>
+        <option value="digital">کالای دیجیتال</option>
+        <option value="home">خانه و آشپزخانه</option>
+        <option value="fashion">مد و پوشاک</option>
+        <option value="beauty">زیبایی و سلامت</option>
+      </select>
+    </div>
+    <div class="panel" style="padding:0">
+      <div class="tbl-wrap"><table class="tbl"><thead><tr><th></th><th>نام محصول</th><th>دسته</th><th>قیمت</th><th>تخفیف</th><th></th></tr></thead><tbody id="prodTable"></tbody></table></div>
+    </div>
+  </section>
+
+  <!-- شگفت‌انگیز -->
+  <section class="tab" data-tab="amazing">
+    <div class="panel" style="padding:0">
+      <div class="tbl-wrap"><table class="tbl"><thead><tr><th></th><th>نام محصول</th><th>قیمت</th><th>تخفیف</th><th>موجودی</th><th></th></tr></thead><tbody id="amzTable"></tbody></table></div>
+    </div>
+  </section>
+
+  <!-- سفارش‌ها -->
+  <section class="tab" data-tab="orders">
+    <div class="panel" style="padding:0">
+      <div class="tbl-wrap"><table class="tbl"><thead><tr><th>کد سفارش</th><th>خریدار</th><th>مبلغ</th><th>تاریخ</th><th>وضعیت</th><th></th></tr></thead><tbody id="ordersTable"></tbody></table></div>
+    </div>
+  </section>
+
+  <!-- کد تخفیف -->
+  <section class="tab" data-tab="discounts">
+    <div class="panel" style="padding:0">
+      <div class="tbl-wrap"><table class="tbl"><thead><tr><th>کد</th><th>درصد تخفیف</th><th>وضعیت</th><th></th></tr></thead><tbody id="discTable"></tbody></table></div>
+    </div>
+  </section>
+
+  <!-- تنظیمات -->
+  <section class="tab" data-tab="settings">
+    <div class="panel">
+      <div class="panel-head"><h3>اطلاعات فروشگاه</h3></div>
+      <form class="form" id="settingsForm">
+        <div class="f-field"><label>نام فروشگاه</label><div class="ctrl"><input type="text" id="stName"></div></div>
+        <div class="f-field"><label>تلفن پشتیبانی</label><div class="ctrl"><input type="text" id="stPhone"></div></div>
+        <div class="f-field"><label>حداقل خرید برای ارسال رایگان (تومان)</label><div class="ctrl"><input type="number" id="stFree" class="ltr"></div></div>
+        <div class="f-field full" style="margin-top:10px">
+          <button type="submit" class="btn btn-primary">💾 ذخیره تنظیمات</button>
+        </div>
+      </form>
+    </div>
+    <div class="panel">
+      <div class="panel-head"><h3>⚠️ بازنشانی داده‌ها</h3></div>
+      <p style="color:var(--muted);font-size:13px;margin-bottom:14px">با این کار تمام محصولات، سفارش‌ها و کدهای تخفیف به حالت اولیه برمی‌گردند.</p>
+      <button class="btn btn-danger" id="resetBtn">🗑 بازنشانی همه داده‌ها</button>
+    </div>
+  </section>
+</main>
+
+<!-- مودال‌ها -->
+<div class="overlay" id="overlay">
+  <div class="modal" id="modal">
+    <div class="modal-head">
+      <h3 id="modalTitle">افزودن محصول</h3>
+      <button onclick="closeModal()" aria-label="بستن">✕</button>
+    </div>
+    <div id="modalBody"></div>
+  </div>
+</div>
+
+<div class="toast" id="toast" role="status"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span id="toastMsg"></span></div>
+
+<script src="shop.js"></script>
+<script>
+/* محافظ ورود مدیر */
+if(!isAdmin()) location.href = 'admin-login.html';
+
+
+
+/* ناوبری تب‌ها */
+const tabs = document.querySelectorAll('.tab');
+const sideItems = document.querySelectorAll('.side-item[data-tab]');
+function switchTab(name){
+  tabs.forEach(t => t.classList.toggle('on', t.dataset.tab === name));
+  sideItems.forEach(i => i.classList.toggle('on', i.dataset.tab === name));
+  const titles = {dashboard:'داشبورد',products:'مدیریت محصولات',amazing:'پیشنهاد شگفت‌انگیز',orders:'سفارش‌ها',discounts:'کدهای تخفیف',settings:'تنظیمات فروشگاه'};
+  $('#pageTitle').textContent = titles[name];
+  updateActions(name);
+  render();
+  if(innerWidth <= 900) $('#side').classList.remove('open');
+}
+sideItems.forEach(i => i.addEventListener('click', () => switchTab(i.dataset.tab)));
+$('#hamb').addEventListener('click', () => $('#side').classList.toggle('open'));
+$('#logoutBtn').addEventListener('click', () => {
+  sessionStorage.removeItem('anar_admin');
+  showToast('خروج موفق 👋');
+  setTimeout(() => location.href = 'admin-login.html', 600);
+});
+
+/* دکمه‌های بالای صفحه بر اساس تب */
+function updateActions(name){
+  const box = $('#hdActions'); box.innerHTML = '';
+  if(name === 'products') box.innerHTML = '<button class="btn btn-primary" onclick="openProductModal()">+ افزودن محصول جدید</button>';
+  if(name === 'amazing') box.innerHTML = '<button class="btn btn-primary" onclick="openAmazingModal()">+ افزودن پیشنهاد شگفت‌انگیز</button>';
+  if(name === 'discounts') box.innerHTML = '<button class="btn btn-primary" onclick="openDiscountModal()">+ ساخت کد تخفیف</button>';
+  if(name === 'orders' && orders.length) box.innerHTML = '<button class="btn btn-danger btn-sm" onclick="clearOrders()">حذف همه سفارش‌ها</button>';
+}
+
+/* مودال‌ها */
+function openModal(title, html){
+  $('#modalTitle').textContent = title;
+  $('#modalBody').innerHTML = html;
+  $('#overlay').classList.add('show');
+}
+function closeModal(){ $('#overlay').classList.remove('show'); }
+$('#overlay').addEventListener('click', e => { if(e.target === $('#overlay')) closeModal(); });
+
+/* ── فرم محصول ── */
+function openProductModal(editId){
+  const p = editId ? PRODUCTS.find(x => x.id === editId) : null;
+  const isAmz = editId && AMAZING.find(x => x.id === editId);
+  if(isAmz) return openAmazingModal(editId);
+
+  const html = `<form class="form" id="prodForm">
+    <div class="f-field full"><label>نام کامل محصول</label><div class="ctrl"><input type="text" id="pName" required value="${p?p.t:''}"></div></div>
+    <div class="f-field"><label>دسته‌بندی</label><div class="ctrl"><select id="pCat">
+      <option value="digital" ${p&&p.c==='digital'?'selected':''}>کالای دیجیتال</option>
+      <option value="home" ${p&&p.c==='home'?'selected':''}>خانه و آشپزخانه</option>
+      <option value="fashion" ${p&&p.c==='fashion'?'selected':''}>مد و پوشاک</option>
+      <option value="beauty" ${p&&p.c==='beauty'?'selected':''}>زیبایی و سلامت</option>
+    </select></div></div>
+    <div class="f-field"><label>Seed تصویر <small>(متن انگلیسی)</small></label><div class="ctrl"><input type="text" class="ltr" id="pSeed" placeholder="مثلاً samsung-s25" value="${p?p.s:''}"></div></div>
+    <div class="f-field"><label>قیمت (تومان)</label><div class="ctrl"><input type="number" class="ltr" id="pPrice" required value="${p?p.p:''}"></div></div>
+    <div class="f-field"><label>قیمت قبل از تخفیف <small>(اختیاری)</small></label><div class="ctrl"><input type="number" class="ltr" id="pOld" placeholder="0 = بدون تخفیف" value="${p&&p.o?p.o:''}"></div></div>
+    <div class="f-field full" style="margin-top:6px">
+      <button type="submit" class="btn btn-primary">${p?'✏️ ویرایش محصول':'+ افزودن محصول'}</button>
+    </div>
+  </form>`;
+  openModal(p ? 'ویرایش محصول' : 'افزودن محصول جدید', html);
+
+  $('#prodForm').addEventListener('submit', e => {
+    e.preventDefault();
+    const data = {
+      t: $('#pName').value.trim(),
+      c: $('#pCat').value,
+      s: $('#pSeed').value.trim() || 'product-'+Date.now(),
+      p: +$('#pPrice').value || 0,
+      o: +$('#pOld').value || 0,
+      r: 4.5, v: 100
+    };
+    if(!data.t || !data.p){ showToast('نام و قیمت الزامی است ❌'); return; }
+
+    if(p){
+      Object.assign(p, data);
+      showToast('محصول ویرایش شد ✅');
+    } else {
+      const maxId = Math.max(...PRODUCTS.map(x=>x.id), 0);
+      data.id = maxId + 1;
+      PRODUCTS.push(data);
+      showToast('محصول جدید اضافه شد ✅');
+    }
+    saveProducts(); closeModal(); render();
+  });
+}
+
+function openAmazingModal(editId){
+  const p = editId ? AMAZING.find(x => x.id === editId) : null;
+  const html = `<form class="form" id="amzForm">
+    <div class="f-field full"><label>نام محصول</label><div class="ctrl"><input type="text" id="aName" required value="${p?p.t:''}"></div></div>
+    <div class="f-field"><label>Seed تصویر</label><div class="ctrl"><input type="text" class="ltr" id="aSeed" value="${p?p.s:''}"></div></div>
+    <div class="f-field"><label>قیمت</label><div class="ctrl"><input type="number" class="ltr" id="aPrice" required value="${p?p.p:''}"></div></div>
+    <div class="f-field"><label>قیمت قبل از تخفیف</label><div class="ctrl"><input type="number" class="ltr" id="aOld" required value="${p?p.o:''}"></div></div>
+    <div class="f-field"><label>موجودی باقی‌مانده</label><div class="ctrl"><input type="number" class="ltr" id="aLeft" value="${p?p.left:5}"></div></div>
+    <div class="f-field full"><button type="submit" class="btn btn-primary">${p?'✏️ ویرایش':'+ افزودن'}</button></div>
+  </form>`;
+  openModal(p ? 'ویرایش شگفت‌انگیز' : 'افزودن پیشنهاد شگفت‌انگیز', html);
+  $('#amzForm').addEventListener('submit', e => {
+    e.preventDefault();
+    const data = { t:$('#aName').value.trim(), s:$('#aSeed').value.trim()||'amz-'+Date.now(), p:+$('#aPrice').value, o:+$('#aOld').value, left:+$('#aLeft').value||5 };
+    if(!data.t||!data.p){ showToast('فیلدها را پر کن'); return; }
+    if(p){ Object.assign(p, data); showToast('ویرایش شد ✅'); }
+    else { data.id = Math.max(...AMAZING.map(x=>x.id),200)+1; AMAZING.push(data); showToast('اضافه شد ✅'); }
+    saveProducts(); closeModal(); render();
+  });
+}
+
+/* ── فرم کد تخفیف ── */
+function openDiscountModal(){
+  const html = `<form class="form" id="discForm">
+    <div class="f-field full"><label>کد تخفیف (حروف بزرگ)</label><div class="ctrl"><input type="text" class="ltr" id="dCode" required placeholder="SUMMER20"></div></div>
+    <div class="f-field full"><label>درصد تخفیف</label><div class="ctrl"><input type="number" class="ltr" id="dPct" required min="1" max="99" value="10"></div></div>
+    <div class="f-field full"><button type="submit" class="btn btn-primary">+ ساخت کد</button></div>
+  </form>`;
+  openModal('ساخت کد تخفیف', html);
+  $('#discForm').addEventListener('submit', e => {
+    e.preventDefault();
+    const code = $('#dCode').value.trim().toUpperCase();
+    const pct = +$('#dPct').value;
+    if(!code || !pct){ showToast('فیلدها را پر کن'); return; }
+    if(discountCodes.find(d => d.code === code)){ showToast('این کد قبلاً ثبت شده'); return; }
+    discountCodes.push({code, percent:pct, active:true});
+    saveDiscounts(); closeModal(); render();
+    showToast('کد تخفیف ساخته شد ✅');
+  });
+}
+
+/* ── حذف محصول/شگفت‌انگیز/تخفیف ── */
+function deleteProduct(id){
+  if(!confirm('حذف این محصول؟')) return;
+  const i = PRODUCTS.findIndex(p => p.id === id);
+  if(i !== -1){ PRODUCTS.splice(i,1); saveProducts(); render(); showToast('محصول حذف شد 🗑'); }
+}
+function deleteAmazing(id){
+  if(!confirm('حذف این پیشنهاد؟')) return;
+  const i = AMAZING.findIndex(p => p.id === id);
+  if(i !== -1){ AMAZING.splice(i,1); saveProducts(); render(); showToast('حذف شد 🗑'); }
+}
+function toggleDiscount(code){
+  const d = discountCodes.find(x => x.code === code);
+  if(d){ d.active = !d.active; saveDiscounts(); render(); }
+}
+function deleteDiscount(code){
+  if(!confirm('حذف کد '+code+'؟')) return;
+  discountCodes = discountCodes.filter(d => d.code !== code);
+  saveDiscounts(); render(); showToast('کد حذف شد 🗑');
+}
+
+/* ── جزئیات سفارش ── */
+function viewOrder(code){
+  const o = orders.find(x => x.code === code); if(!o) return;
+  const items = o.items.map(([id,q]) => {
+    const p = CATALOG[id] || {t:'(کالای حذف‌شده)', s:'none', p:0};
+    return `<tr><td><img src="${img(p.s,80,80)}"></td><td>${p.t}</td><td>${faD(q)} عدد</td><td><b>${toman(p.p*q)}</b></td></tr>`;
+  }).join('');
+  const html = `
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px;font-size:13px">
+      <div><span style="color:var(--muted)">کد سفارش:</span> <b>${o.code}</b></div>
+      <div><span style="color:var(--muted)">تاریخ:</span> <b>${o.date}</b></div>
+      <div><span style="color:var(--muted)">خریدار:</span> <b>${o.user}</b></div>
+      <div><span style="color:var(--muted)">تلفن:</span> <b class="ltr" style="display:inline-block">${o.phone}</b></div>
+      <div style="grid-column:1/-1"><span style="color:var(--muted)">آدرس:</span> <b>${o.city} - ${o.address}</b></div>
+      ${o.note ? `<div style="grid-column:1/-1"><span style="color:var(--muted)">توضیحات:</span> <b>${o.note}</b></div>` : ''}
+    </div>
+    <div class="tbl-wrap"><table class="tbl"><thead><tr><th></th><th>کالا</th><th>تعداد</th><th>مبلغ</th></tr></thead><tbody>${items}</tbody></table></div>
+    <div style="margin-top:14px;display:flex;justify-content:space-between;padding:12px 14px;background:var(--primary-soft);border-radius:10px">
+      <span><b>هزینه ارسال:</b> ${toman(o.shipCost)}</span>
+      ${o.disc > 0 ? `<span><b>تخفیف:</b> −${toman(o.disc)}</span>` : ''}
+      <span style="color:var(--primary)"><b>جمع نهایی:</b> ${toman(o.total)}</span>
+    </div>`;
+  openModal('جزئیات سفارش '+o.code, html);
+}
+function clearOrders(){
+  if(!confirm('همه سفارش‌ها حذف شوند؟')) return;
+  orders = []; saveOrders(); render(); showToast('همه سفارش‌ها پاک شد 🗑');
+}
+function changeStatus(code, status){
+  const o = orders.find(x => x.code === code); if(!o) return;
+  o.status = +status; saveOrders(); render();
+}
+
+/* ── رندر همه بخش‌ها ── */
+function render(){
+  /* اعداد */
+  $('#numProducts').textContent = faD(PRODUCTS.length);
+  $('#numAmazing').textContent = faD(AMAZING.length);
+  $('#numOrders').textContent = faD(orders.length);
+  $('#numDisc').textContent = faD(discountCodes.length);
+
+  renderDashboard(); renderProducts(); renderAmazing(); renderOrders(); renderDiscounts(); renderSettings();
+}
+
+function renderDashboard(){
+  const totalRev = orders.reduce((s,o) => s + o.total, 0);
+  const pending = orders.filter(o => o.status === 0).length;
+  const delivered = orders.filter(o => o.status === 2).length;
+
+  $('#stats').innerHTML = `
+    <div class="stat"><div class="stat-ic pink"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2 3h3l2.6 12.5a2 2 0 0 0 2 1.5h8.7a2 2 0 0 0 2-1.6L22 7H6"/></svg></div><div><b>${faD(orders.length)}</b><small>کل سفارش‌ها</small></div></div>
+    <div class="stat"><div class="stat-ic teal"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div><div><b>${toman(totalRev)}</b><small>مجموع فروش</small></div></div>
+    <div class="stat"><div class="stat-ic yellow"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg></div><div><b>${faD(PRODUCTS.length + AMAZING.length)}</b><small>مجموع محصولات</small></div></div>
+    <div class="stat"><div class="stat-ic dark"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 8v4l3 3M12 22a10 10 0 1 1 0-20 10 10 0 0 1 0 20z"/></svg></div><div><b>${faD(pending)}</b><small>در انتظار پردازش</small></div></div>`;
+
+  const recent = orders.slice(-5).reverse();
+  $('#recentOrders').innerHTML = recent.length ? `<div class="tbl-wrap"><table class="tbl"><thead><tr><th>کد</th><th>خریدار</th><th>مبلغ</th><th>وضعیت</th></tr></thead><tbody>${recent.map(o => `
+    <tr><td>${o.code}</td><td>${o.user}</td><td>${toman(o.total)}</td><td>${statusPill(o.status)}</td></tr>`).join('')}</tbody></table></div>` : '<div class="empty"><b>هنوز سفارشی ثبت نشده</b>وقتی کاربری خرید کنه، اینجا نشون داده میشه.</div>';
+
+  const sorted = [...PRODUCTS].sort((a,b) => (b.v||0) - (a.v||0)).slice(0,4);
+  $('#topProducts').innerHTML = `<div class="tbl-wrap"><table class="tbl"><tbody>${sorted.map(p => `
+    <tr><td><img src="${img(p.s,80,80)}"></td><td><div class="row-meta"><div class="meta"><b>${p.t}</b><small>${CAT_NAME[p.c]}</small></div></div></td><td><b>${toman(p.p)}</b></td><td><span class="pill gray">${faD(p.v||0)} بازدید</span></td></tr>`).join('')}</tbody></table></div>`;
+}
+
+function renderProducts(){
+  const q = ($('#searchProd')?.value || '').toLowerCase();
+  const cat = $('#filterCat')?.value || '';
+  const list = PRODUCTS.filter(p =>
+    (!q || p.t.toLowerCase().includes(q)) &&
+    (!cat || p.c === cat));
+  $('#prodTable').innerHTML = list.length ? list.map(p => `
+    <tr>
+      <td><img src="${img(p.s,80,80)}"></td>
+      <td><div class="row-meta"><div class="meta"><b>${p.t}</b><small>ID: ${faD(p.id)}</small></div></div></td>
+      <td><span class="pill gray">${CAT_NAME[p.c]}</span></td>
+      <td><b>${toman(p.p)}</b></td>
+      <td>${p.o ? `<span class="pill warn">٪${faD(off(p))}</span>` : '—'}</td>
+      <td><div class="row-actions">
+        <button class="btn btn-outline btn-sm" onclick="openProductModal(${p.id})">✏️</button>
+        <button class="btn btn-danger btn-sm" onclick="deleteProduct(${p.id})">🗑</button>
+      </div></td>
+    </tr>`).join('') : '<tr><td colspan="6" class="empty"><b>محصولی یافت نشد</b></td></tr>';
+}
+
+function renderAmazing(){
+  $('#amzTable').innerHTML = AMAZING.length ? AMAZING.map(p => `
+    <tr>
+      <td><img src="${img(p.s,80,80)}"></td>
+      <td><b>${p.t}</b></td>
+      <td><b>${toman(p.p)}</b> <del style="color:#b6bac2;font-size:11px">${toman(p.o)}</del></td>
+      <td><span class="pill err">٪${faD(off(p))}</span></td>
+      <td><span class="pill ${p.left < 5 ? 'warn' : 'ok'}">${faD(p.left)} عدد</span></td>
+      <td><div class="row-actions">
+        <button class="btn btn-outline btn-sm" onclick="openAmazingModal(${p.id})">✏️</button>
+        <button class="btn btn-danger btn-sm" onclick="deleteAmazing(${p.id})">🗑</button>
+      </div></td>
+    </tr>`).join('') : '<tr><td colspan="6" class="empty"><b>پیشنهادی ثبت نشده</b></td></tr>';
+}
+
+function statusPill(s){
+  const m = [['s0','در انتظار پردازش','warn'],['s1','ارسال شده','ok'],['s2','تحویل داده شده','ok']];
+  const [cls,txt,_] = m[s] || m[0];
+  return `<span class="pill ${cls}">${txt}</span>`;
+}
+function renderOrders(){
+  $('#ordersTable').innerHTML = orders.length ? orders.slice().reverse().map(o => `
+    <tr>
+      <td><b style="font-family:var(--fd)">${o.code}</b></td>
+      <td>${o.user}<br><small style="color:var(--muted)">${o.phone}</small></td>
+      <td><b>${toman(o.total)}</b></td>
+      <td><small>${o.date}</small></td>
+      <td><select class="status-select s${o.status}" onchange="changeStatus('${o.code}',this.value)">
+        <option value="0" ${o.status===0?'selected':''}>در انتظار</option>
+        <option value="1" ${o.status===1?'selected':''}>ارسال شده</option>
+        <option value="2" ${o.status===2?'selected':''}>تحویل داده شده</option>
+      </select></td>
+      <td><button class="btn btn-outline btn-sm" onclick="viewOrder('${o.code}')">جزئیات</button></td>
+    </tr>`).join('') : '<tr><td colspan="6" class="empty"><b>هنوز سفارشی ثبت نشده</b><p>هر وقت کاربری خرید کنه، اینجا نشون داده میشه.</p></td></tr>';
+}
+
+function renderDiscounts(){
+  $('#discTable').innerHTML = discountCodes.length ? discountCodes.map(d => `
+    <tr>
+      <td><code style="background:#f4f1ea;padding:4px 10px;border-radius:6px;font-size:13px;font-weight:700;letter-spacing:1px">${d.code}</code></td>
+      <td><b>٪${faD(d.percent)}</b></td>
+      <td><span class="pill ${d.active?'ok':'err'}">${d.active?'فعال':'غیرفعال'}</span></td>
+      <td><div class="row-actions">
+        <button class="btn btn-outline btn-sm" onclick="toggleDiscount('${d.code}')">${d.active?'غیرفعال':'فعال'}</button>
+        <button class="btn btn-danger btn-sm" onclick="deleteDiscount('${d.code}')">🗑</button>
+      </div></td>
+    </tr>`).join('') : '<tr><td colspan="4" class="empty"><b>کد تخفیفی ثبت نشده</b></td></tr>';
+}
+
+function renderSettings(){
+  $('#stName').value = settings.shopName;
+  $('#stPhone').value = settings.phone;
+  $('#stFree').value = settings.freeShipLimit;
+}
+
+/* جست‌وجو و فیلتر */
+$('#searchProd').addEventListener('input', renderProducts);
+$('#filterCat').addEventListener('change', renderProducts);
+
+/* ذخیره تنظیمات */
+$('#settingsForm').addEventListener('submit', e => {
+  e.preventDefault();
+  settings.shopName = $('#stName').value.trim();
+  settings.phone = $('#stPhone').value.trim();
+  settings.freeShipLimit = +$('#stFree').value || 500000;
+  saveSettings();
+  showToast('تنظیمات ذخیره شد ✅');
+});
+
+/* بازنشانی */
+$('#resetBtn').addEventListener('click', () => {
+  if(!confirm('همه داده‌ها (محصولات، سفارش‌ها، کدهای تخفیف) به حالت اولیه برمی‌گردند. مطمئنی؟')) return;
+  localStorage.removeItem('anar_products');
+  localStorage.removeItem('anar_amazing');
+  localStorage.removeItem('anar_orders');
+  localStorage.removeItem('anar_discounts');
+  localStorage.removeItem('anar_settings');
+  loadProducts();
+  orders = []; discountCodes = [{code:'ANAR10',percent:10,active:true}];
+  settings = {shopName:'انارشاپ', phone:'۰۲۱ - ۹۱۰۰ ۹۱۰۰', freeShipLimit:500000};
+  render();
+  showToast('همه داده‌ها بازنشانی شد 🔄');
+});
+
+render();
+updateActions('dashboard');
+</script>
+</body>
+</html>
