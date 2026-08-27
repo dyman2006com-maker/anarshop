@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ورود مدیر | انارشاپ</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lalezar&family=Vazirmatn:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f6f3ee; --ink:#23242e; --muted:#7c818d; --line:#e8e2d6;
+  --primary:#e0243f; --primary-dark:#b71531; --primary-soft:#fdeaee;
+  --teal:#0f9d9a; --teal-soft:#e4f4f3; --saffron:#f4b942;
+  --sh-md:0 14px 40px rgba(35,36,46,.14);
+  --fd:'Lalezar','Vazirmatn',serif; --fb:'Vazirmatn',system-ui,sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%}
+body{font-family:var(--fb);background:var(--bg);color:var(--ink);display:grid;place-items:center;padding:20px;position:relative}
+body::before{content:"";position:fixed;inset:0;background:radial-gradient(circle at 20% 10%,var(--primary-soft),transparent 40%),radial-gradient(circle at 80% 90%,var(--teal-soft),transparent 40%);z-index:0}
+.card{position:relative;z-index:1;width:100%;max-width:420px;background:#fff;border-radius:22px;padding:40px 36px;box-shadow:var(--sh-md);border:1px solid var(--line)}
+.logo{text-align:center;margin-bottom:24px}
+.logo-mark{width:58px;height:58px;margin:0 auto 10px;display:grid;place-items:center;background:var(--ink);border-radius:16px;transform:rotate(-6deg)}
+.logo h1{font-family:var(--fd);font-weight:400;font-size:26px}
+.logo h1 em{color:var(--primary);font-style:normal}
+.logo small{color:var(--muted);font-size:12px}
+.badge-top{position:absolute;top:-12px;right:50%;transform:translateX(50%);background:var(--primary);color:#fff;font-size:11.5px;font-weight:800;padding:5px 16px;border-radius:99px}
+.field{margin-bottom:16px}
+.field label{display:block;font-size:13px;font-weight:700;margin-bottom:6px}
+.control{display:flex;align-items:center;background:#f4f1ea;border:1.6px solid transparent;border-radius:12px;transition:.2s}
+.control:focus-within{background:#fff;border-color:var(--primary);box-shadow:0 0 0 4px var(--primary-soft)}
+.control.error{border-color:var(--primary);background:#fff6f7}
+.control .ic{padding:0 14px;color:var(--muted);display:grid;place-items:center}
+.control input{flex:1;border:none;background:none;outline:none;padding:12px 14px 12px 0;font-family:inherit;font-size:14px}
+.hint{font-size:11.5px;color:var(--teal);background:var(--teal-soft);padding:6px 12px;border-radius:8px;margin-bottom:18px;display:flex;align-items:center;gap:8px}
+.btn{width:100%;display:flex;align-items:center;justify-content:center;gap:9px;border-radius:12px;padding:13px;font-size:14.5px;font-weight:800;background:var(--ink);color:#fff;transition:.2s;cursor:pointer;border:none;font-family:inherit}
+.btn:hover{background:#3a3b46;transform:translateY(-1px)}
+.btn:active{transform:scale(.98)}
+.back{display:block;text-align:center;margin-top:18px;font-size:13px;color:var(--muted)}
+.back a{color:var(--teal);font-weight:700}
+.shake{animation:shake .4s}
+@keyframes shake{20%{transform:translateX(6px)}40%{transform:translateX(-6px)}60%{transform:translateX(4px)}80%{transform:translateX(-3px)}}
+.err-msg{color:var(--primary);font-size:12px;font-weight:700;margin-top:6px;min-height:16px}
+</style>
+</head>
+<body>
+<form class="card" id="loginForm">
+  <span class="badge-top">🛡️ پنل مدیریت</span>
+  <div class="logo">
+    <div class="logo-mark">
+      <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+    </div>
+    <h1>ورود به <em>پنل مدیریت</em></h1>
+    <small>انارشاپ — کنترل کامل فروشگاه</small>
+  </div>
+
+  <div class="field">
+    <label>نام کاربری مدیر</label>
+    <div class="control"><span class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></span><input type="text" id="username" placeholder="admin" value="admin"></div>
+  </div>
+  <div class="field">
+    <label>رمز عبور</label>
+    <div class="control"><span class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg></span><input type="password" id="password" placeholder="••••••••"></div>
+    <div class="err-msg" id="errMsg"></div>
+  </div>
+
+  <div class="hint">💡 برای تست: نام کاربری <b>admin</b> و رمز <b>admin123</b></div>
+
+  <button type="submit" class="btn">ورود به پنل مدیریت</button>
+
+    <div class="back" style="margin-top:6px"><a id="adminForgot">فراموشی رمز مدیر؟ برگشت به پیش‌فرض</a></div>
+  <div class="back"><a href="index.html">← بازگشت به فروشگاه</a></div>
+</form>
+
+<script>
+document.getElementById('loginForm').addEventListener('submit', e => {
+  e.preventDefault();
+  const u = document.getElementById('username').value.trim();
+  const p = document.getElementById('password').value;
+  const err = document.getElementById('errMsg');
+  const card = document.querySelector('.card');
+
+    const adminPass = localStorage.getItem('anar_admin_pass') || 'admin123';
+  if(u === 'admin' && p === adminPass){
+    sessionStorage.setItem('anar_admin', '1');
+    err.textContent = '';
+    location.href = 'admin.html';
+  } else {
+    err.textContent = 'نام کاربری یا رمز عبور اشتباه است.';
+    card.classList.remove('shake'); void card.offsetWidth; card.classList.add('shake');
+    document.querySelector('.control').classList.add('error');
+  }
+});
+document.getElementById('adminForgot').addEventListener('click', ()=>{
+  localStorage.removeItem('anar_admin_pass');
+  const e=document.getElementById('errMsg');
+  e.textContent='رمز مدیر به پیش‌فرض «admin123» برگشت.';
+  e.style.color='var(--teal)';
+});
+</script>
+</body>
+</html>
